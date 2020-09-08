@@ -3,23 +3,35 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: ShuYou
 subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+description: "A blog belongs to ShuYou"
+keywords: blog life idea
+author: ShuYou
+language: zh-CN
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: http://shuyou.site
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+
+# Site settings
+SEOTitle:  ShuYou's Blog
+header-img: img/home-bg.jpg
+email: zsy4884@gmail.com
+keyword: 'blog life idea'
+
+# SNS settings
+# RSS: false
+github_username: ZouShuYou
+zhihu_username:  ZouShuYou
 
 # Directory
 source_dir: source
@@ -29,7 +41,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render:  
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -98,9 +110,11 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hux
+theme: shuyou
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repository: git@github.com:ZouShuYou/ZouShuYou.github.io.git
+  branch: master
