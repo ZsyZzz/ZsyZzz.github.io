@@ -35,6 +35,28 @@
                     </li>
                 <% } %>
 
+                <% if (config.weibo_username) { %>
+                    <li>
+                        <a target="_blank" href="http://weibo.com/<%= config.weibo_username %>">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                <% } %>
+
+                <% if (config.facebook_username) { %>
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/<%= config.facebook_username %>">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                <% } %>
+
                 <% if (config.github_username) { %>
                     <li>
                         <a target="_blank"  href="https://github.com/<%= config.github_username %>">
@@ -46,11 +68,22 @@
                     </li>
                 <% } %>
 
+                <% if (config.linkedin_username) { %>
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/<%= config.linkedin_username %>">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                <% } %>
+
                 </ul>
                 <p class="copyright text-muted">
                     Copyright &copy; <%= config.title %> <%= new Date().getFullYear() %> 
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://huangxuan.me">Hux</a> |                        
                     Power by <a href="http://shuyou.site">ShuYou</a>
                 </p>
             </div>

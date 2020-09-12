@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: ShuYou
-subtitle: ''
+title: ShuYou's Blog
+subtitle: '我不知道去何方，但我已经在路上。'
 description: "A blog belongs to ShuYou"
 keywords: blog life idea
 author: ShuYou
@@ -37,7 +37,7 @@ zhihu_username:  ZouShuYou
 source_dir: source
 public_dir: public
 tag_dir: tags
-archive_dir: archives
+archive_dir: archive
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
@@ -86,6 +86,15 @@ tag_map:
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-avatar: img/me.jpg
+sidebar-about-description: 花有重开日，人无再少年。
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date

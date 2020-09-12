@@ -1,6 +1,6 @@
 ---
 layout: "archives"
 title: "Archives"
-description: "Hey, this is Archives."
+description: "越努力，越幸运。"
 header-img: "img/archive-bg.jpg"
 ---
