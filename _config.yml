@@ -125,5 +125,5 @@ theme: shuyou
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:ZouShuYou/ZouShuYou.github.io.git
+  repository: zsy@119.45.216.206:/home/zsy/git/hexoBlog
   branch: master

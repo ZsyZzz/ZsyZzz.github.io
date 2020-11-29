@@ -1,38 +1,19 @@
 ---
 title: Hello World
+tags:
+    - 记录
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+这是使用Hexo搭建的博客，使用了Hux的主题。
+用腾讯云做的服务器，还要nginx做的负载均衡，图片加载很慢，之后再优化下吧。
+刚开始是打算用来记录Java技术之类的学习，现在想了下这个博客还是用来记录自己平时的想法和生活吧。
+具体的技术什么的就发表在平台之类的网站上吧。
 
-## Quick Start
+## 计划
+2020年毕业的，今年也比较特殊，新冠嘛。
+年初谈了女朋友，当时已经签了三方，可是也没有去想毁三方，现在还是有点后悔的，早知道就留在武汉了。
+打算呆到2022年3月份回去吧，所以可能2022年1月份会辞职，回去过年，找工作。
+所以2021年要准备很多事情，学习很多东西。
 
-### Create a new post
+## 希望
+希望以后的自己会越来越好吧，生活和感情上都是。
 
-``` bash
-$ hexo new "My New Post"
-```
-
-More info: [Writing](https://hexo.io/docs/writing.html)
-
-### Run server
-
-``` bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
