@@ -1,8 +1,15 @@
 ---
-title: Hello World
+layout:     post
+title:      "Welcome to ShuYou Blog"
+subtitle:   " \"Hello World, Hello Blog\""
+date:       2020-11-29
+author:     "Zsy"
 tags:
     - 记录
 ---
+> “Yeah It's on. ”
+
+## 前言
 这是使用Hexo搭建的博客，使用了Hux的主题。
 用腾讯云做的服务器，还要nginx做的负载均衡，图片加载很慢，之后再优化下吧。
 刚开始是打算用来记录Java技术之类的学习，现在想了下这个博客还是用来记录自己平时的想法和生活吧。

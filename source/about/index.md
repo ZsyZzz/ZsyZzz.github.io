@@ -1,8 +1,8 @@
 ---
-title: About Me
+layout: "about"
+title: "About"
 type: "categories"
 description: "花有重开日，人无再少年。"
-comments: false
 header-img: "img/about-bg.jpg"
 ---
 
