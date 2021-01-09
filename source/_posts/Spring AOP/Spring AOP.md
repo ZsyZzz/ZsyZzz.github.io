@@ -23,7 +23,7 @@ AOP的本质是由AOP框架修改业务组件的字节码，是代理模式的�
 
 **常用AOP实现比较**
 
-![aop.png](./img/aop.png)
+![aop.png](https://img-blog.csdnimg.cn/20210109151326747.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70#pic_center)
 
 ## 二、AOP术语
 * Aspect（切面）：通常是一个类，里面定义切入点和通知。
