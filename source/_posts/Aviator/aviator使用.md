@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Aviator的初步了解和使用"
-date:       2020-1-18
+date:       2021-1-18
 author:     "Zsy"
 tags:
     - Aviator
