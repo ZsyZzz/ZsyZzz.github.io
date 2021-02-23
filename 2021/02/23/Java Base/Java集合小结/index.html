@@ -13,11 +13,11 @@
 
     <title>
         
-          Welcome to ShuYou Blog - ShuYou&#39;s Blog
+          Java集合小结 - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://shuyou.site/2020/11/29/hello-world/">
+    <link rel="canonical" href="http://shuyou.site/2021/02/23/Java Base/Java集合小结/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -171,14 +171,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#记录" title="记录">记录</a>
+                          <a class="tag" href="/tags/#Java集合" title="Java集合">Java集合</a>
                         
                     </div>
-                    <h1>Welcome to ShuYou Blog</h1>
-                    <h2 class="subheading"> &#34;Hello World, Hello Blog&#34;</h2>
+                    <h1>Java集合小结</h1>
+                    <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Zsy on
-                        2020-11-29
+                        2021-02-23
                     </span>
                 </div>
             </div>
@@ -198,11 +198,73 @@
                 post-container">
 
                 <blockquote>
-<p>“Yeah It’s on. ”</p>
+<p>这篇文章对Java集合相关类进行介绍，包括Collection、List、Set、Map、Queue这些常见得集合相关接口和类。</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是使用Hexo搭建的博客，使用了Hux的主题。<br>用腾讯云做的服务器，还要nginx做的负载均衡，图片加载很慢，之后再优化下吧。<br>刚开始是打算用来记录Java技术之类的学习，现在想了下这个博客还是用来记录自己平时的想法和生活吧。<br>具体的技术什么的就发表在平台之类的网站上吧。</p>
-<h2 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h2><p>2020年毕业的，今年也比较特殊，新冠嘛。<br>年初谈了女朋友，当时已经签了三方，可是也没有去想毁三方，现在还是有点后悔的，早知道就留在武汉了。<br>打算呆到2022年3月份回去吧，所以可能2022年1月份会辞职，回去过年，找工作。<br>所以2021年要准备很多事情，学习很多东西。</p>
-<h2 id="希望"><a href="#希望" class="headerlink" title="希望"></a>希望</h2><p>希望以后的自己会越来越好吧，生活和感情上都是。</p>
+<h3 id="1-集合概述"><a href="#1-集合概述" class="headerlink" title="1.集合概述"></a>1.集合概述</h3><p>常用的集合有List、Set、Map、Queue等，他们之间的关系如下图。List、Queue、Set继承Collection接口。Iterable接口是迭代器，这里不进行过多介绍。Map接口是一个单独的接口，这里不进行介绍。<br><img src="https://img-blog.csdnimg.cn/20210223141021909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="关系图"><br><strong>List、Set、Queue、Map的区别</strong></p>
+<ul>
+<li>List存储可以重复、有序的元素</li>
+<li>Set存储不可以重复、无序的元素</li>
+<li>Queue存储有序的元素且先进先出，是一个队列</li>
+<li>Map是键值对存储结构，Key 是无序的、不可重复的，value 是无序的、可重复的，每个键最多映射到一个值，key和value都可以为null</li>
+</ul>
+<h3 id="2-List"><a href="#2-List" class="headerlink" title="2.List"></a>2.List</h3><p><strong>List：元素有序，元素可重复，添加的元素放在最后（按照插入顺序保存元素）</strong></p>
+<p>常用子类有：</p>
+<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Vector</li>
+</ul>
+<p><strong>2.1 ArrayList</strong><br><img src="https://img-blog.csdnimg.cn/202102231429137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="arraylist继承图"><br>ArrayList继承AbstractList抽象类，实现List、Serializable、Cloneable、RandomAccess接口。<br><strong>使用 Object[] 数组存储元素</strong> 因此查询快，增删操作慢，没有实现线程同步。</p>
+<p>常用方法：</p>
+<ul>
+<li>add(E e) 向数组末尾添加一个元素</li>
+<li>clear() 清除所有元素，数组里的元素为null，size置为0</li>
+<li>contains(Object o)  是否包含某个元素</li>
+<li>get(int index) 获取第i个元素</li>
+<li>remove(int index) 删除第i个元素</li>
+<li>remove(Object o) 删除某个元素</li>
+<li>size() 返回存储了多少个元素</li>
+</ul>
+<p><strong>2.2 LinkedList</strong><br><img src="https://img-blog.csdnimg.cn/20210223144522217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="LinkedList继承图"><br>LinkedList继承AbstractSequentialList抽象类，实现List、Serializable、Cloneable、Deque接口。<br><strong>使用双向链表存储元素（内有Node私有静态内部类）</strong> 因此查询慢，增删操作快，没有实现线程同步。<br><img src="https://img-blog.csdnimg.cn/20210223144842742.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="双向链表"><br>因为实现了Deque接口，所以除了拥有列表相关的常用方法外，还有队列相关的方法。</p>
+<p><strong>实现List接口的方法（列表相关操作）常用方法和ArrayList类似</strong><br><img src="https://img-blog.csdnimg.cn/20210223145208747.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="列表相关操作"><br><strong>实现Deque接口的方法（队列相关操作）</strong><br><img src="https://img-blog.csdnimg.cn/20210223150655944.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="队列相关操作"></p>
+<ul>
+<li>addFirst(E e)  offerFirst(E e)  插入链表首位</li>
+<li>addLast(E e)  offerLast(E e)  插入链表末尾</li>
+<li>getFirst()  element()   获取链表首位元素</li>
+<li>getLast()  获取链表末尾元素</li>
+<li>offer(E e)  链表末尾添加元素</li>
+<li>peek()  peekFirst()  获取链表首位元素 但不删除</li>
+<li>poll()  pollFirst()  获取链表首位元素 且删除</li>
+</ul>
+<p><strong>2.3 Vector</strong><br><img src="https://img-blog.csdnimg.cn/20210223151148644.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="Vector继承"><br><strong>使用 Object[] 数组存储元素</strong> 因此查询快，增删操作慢，实现线程同步。<br>Vector非常类似ArrayList，但是Vector是同步的。由Vector创建的Iterator，虽然和 ArrayList创建的Iterator是同一接口，但是，因为Vector是同步的，当一个Iterator被创建而且正在被使用，另一个线程改变了 Vector的状态（例如，添加或删除了一些元素），这时调用Iterator的方法时将抛出 ConcurrentModificationException。</p>
+<h3 id="3-Set"><a href="#3-Set" class="headerlink" title="3.Set"></a>3.Set</h3><p><strong>Set：元素无序，元素不可重复。</strong></p>
+<ul>
+<li>无序性不等于随机性 ，无序性是指存储的数据在底层数组中并非按照数组索引的顺序添加 ，而是根据数据的哈希值决定的。</li>
+<li>不可重复性是指添加的元素按照 equals()判断时 ，返回 false，需要同时重写 equals()方法和 HashCode()方法。</li>
+</ul>
+<p>常用子类：</p>
+<ul>
+<li>HashSet</li>
+<li>LinkedHashSet</li>
+<li>TreeSet</li>
+</ul>
+<p><strong>3.1 HashSet</strong><br>使用HashMap来保存所有元素，线程不安全的，集合元素可以是null,但只能放入一个null，不能保证迭代的顺序与插入的顺序一致。</p>
+<p><strong>当使用add方法添加元素时，底层是使用HashMap的put方法，会计算key的hash值，以hashcode值不同来去除重复的值，值得注意的是当添加对象作为键时，应该重写对象类的hashCode()和equals()方法</strong><br>如果自定义的类中没有重写equals()，那么比较的还是地址，返回值不同，则判断为两个对象不相等，都被添加到了集合中，所以也要重写equals()。<br>所以自定义对象添加到Set集合类中一定要重写hashCode()与equals()，缺一不可 。</p>
+<p><strong>3.2 LinkedHashSet</strong><br>使用LinkedHashMap来保存所有元素，线程不安全的，集合元素不能重复，迭代输出的顺序与插入的顺序保持一致。<br><strong>继承HashSet</strong></p>
+<p><strong>3.3 TreeSet</strong><br>TreeSet 是 SortedSet 接口的实现类，TreeSet 可以确保集合元素处于排序状态。TreeSet底层使用红黑树结构存储数据(使用TreeMap存储元素)，默认情况下，TreeSet 采用自然排序。<br>向TreeSet中添加的数据，要求是相同类的对象，需要实现使用至少一种排序方式，Comparable（自然排序）和Comparator（定制排序）。比较两个对象是否相同的标准是重写的方法是否返回0，不再equals()。</p>
+<h3 id="4-Queue"><a href="#4-Queue" class="headerlink" title="4.Queue"></a>4.Queue</h3><p>队列通常但不一定以FIFO（先进先出）的方式对元素进行排序。 例外情况包括优先级队列（根据提供的比较器对元素进行排序或元素的自然排序）和LIFO队列（或堆栈），对LIFO进行排序（后进先出）。</p>
+<p>很多常用queue子类都与线程有关，LinkedList已经介绍过了，这里只介绍ArrayDeque。</p>
+<p><strong>Deque</strong><br>Deque扩展了Queue，有队列的所有方法，还可以看做栈，有栈的基本方法push/pop/peek，还有明确的操作两端的方法如addFirst/removeLast等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210223172655847.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="方法"></p>
+<p>该接口定义了访问双端队列两端的元素的方法。 提供了用于插入，删除和检查元素的方法。 这些方法中的每一种都以两种形式存在：一种在操作失败时引发异常，另一种返回一个特殊值（取决于操作，为null或false ）。 插入操作的后一种形式是专门为容量受限的Deque实现而设计的。 在大多数实现中，插入操作不会失败。</p>
+<p><strong>4.1 ArrayDeque</strong><br>ArrayDeque实现了Deque接口，同LinkedList一样，它的队列长度也是没有限制的，底层使用 Object[] 数组存储元素<br><img src="https://img-blog.csdnimg.cn/20210223172604231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="方法"></p>
+<ul>
+<li>ArrayDeque 是一个可扩容的数组，LinkedList 是链表结构；</li>
+<li>ArrayDeque 里不可以存 null 值，但是 LinkedList 可以；</li>
+<li>ArrayDeque 在操作头尾端的增删操作时更高效，但是 LinkedList 只有在当要移除中间某个元素且已经找到了这个元素后的移除才是 O(1) 的；因为ArrayDeque底层使用的是一个逻辑循环数组</li>
+<li>ArrayDeque 在内存使用方面更高效。</li>
+</ul>
+<p><strong>推荐使用ArrayDeque</strong></p>
 
 
                 <hr>
@@ -211,10 +273,10 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/01/09/Spring AOP/Spring AOP介绍/" data-toggle="tooltip" data-placement="top" title="Spring AOP的初步了解">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2021/01/18/Aviator/aviator使用/" data-toggle="tooltip" data-placement="top" title="Aviator的初步了解和使用">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -240,7 +302,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#记录" title="记录">记录</a>
+                          <a class="tag" href="/tags/#Java集合" title="Java集合">Java集合</a>
                         
                     </div>
                 </section>
