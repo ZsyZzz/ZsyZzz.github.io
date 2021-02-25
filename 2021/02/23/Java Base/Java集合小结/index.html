@@ -265,6 +265,24 @@
 <li>ArrayDeque 在内存使用方面更高效。</li>
 </ul>
 <p><strong>推荐使用ArrayDeque</strong></p>
+<h3 id="5-Map接口"><a href="#5-Map接口" class="headerlink" title="5.Map接口"></a>5.Map接口</h3><p>Map接口与List、Set接口不同，它并未继承Collection接口，是由一系列键值对组成的接口，是一个独立的接口。常用的实现Map的类有HashMap、ConcurrentHashMap、HashTable、TreeMap。</p>
+<p>Map接口有一个内部接口Entry，它是存储元素键值对的条目。</p>
+<h5 id="5-1HashMap和HashTable的区别"><a href="#5-1HashMap和HashTable的区别" class="headerlink" title="5.1HashMap和HashTable的区别"></a>5.1HashMap和HashTable的区别</h5><ul>
+<li>线程安全：HashMap不是线程安全的，HashTable是线程安全的，它通过使用synchonrized修饰方法保证线程安全</li>
+<li>效率：HashMap比HashTable效率高，如果为了保证线程安全推荐使用ConcurrentHashMap，不推荐使用HashTable</li>
+<li>对 Null key 和 Null value 的支持： HashMap 可以存储 null 的 key 和 value，但 null 作为键只能有一个，null 作为值可以有多个；HashTable 不允许有 null 键和 null 值，否则会抛出 NullPointerException。</li>
+<li>初始容量大小和每次扩充容量大小的不同 ： ① 创建时如果不指定容量初始值，Hashtable 默认的初始大小为 11，之后每次扩充，容量变为原来的 2n+1。HashMap 默认的初始化大小为 16。之后每次扩充，容量变为原来的 2 倍。② 创建时如果给定了容量初始值，那么 Hashtable 会直接使用你给定的大小，而 HashMap 会将其扩充为 2 的幂次方大小（HashMap 中的tableSizeFor()方法保证，下面给出了源代码）。也就是说 HashMap 总是使用 2 的幂作为哈希表的大小,后面会介绍到为什么是 2 的幂次方。</li>
+<li>底层数据结构： JDK1.8 以后的 HashMap 在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间。Hashtable 没有这样的机制。</li>
+</ul>
+<h5 id="5-2HashMap的底层实现"><a href="#5-2HashMap的底层实现" class="headerlink" title="5.2HashMap的底层实现"></a>5.2HashMap的底层实现</h5><p>jdk1.8以前，HashMap底层使用数组加链表的方式实现，也称链表散列。HashMap通过key的hashCode经过hash()函数处理后得到hash值，然后通过（n - 1）&amp; hash 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突。</p>
+<p><a target="_blank" rel="noopener" href="https://www.hollischuang.com/archives/2091">hash函数详解</a></p>
+<p>为了能让 HashMap 存取高效，尽量较少碰撞，也就是要尽量把数据分配均匀。我们上面也讲到了过了，Hash 值的范围值-2147483648 到 2147483647，前后加起来大概 40 亿的映射空间，只要哈希函数映射得比较均匀松散，一般应用是很难出现碰撞的。但问题是一个 40 亿长度的数组，内存是放不下的。所以这个散列值是不能直接拿来用的。用之前还要先做对数组的长度取模运算，得到的余数才能用来要存放的位置也就是对应的数组下标。这个数组下标的计算方法是“ (n - 1) &amp; hash”。（n 代表数组长度）。这也就解释了 HashMap 的长度为什么是 2 的幂次方。</p>
+<p>这个算法应该如何设计呢？</p>
+<p>我们首先可能会想到采用%取余的操作来实现。但是，重点来了：“取余(%)操作中如果除数是 2 的幂次则等价于与其除数减一的与(&amp;)操作（也就是说 hash%length==hash&amp;(length-1)的前提是 length 是 2 的 n 次方；）。” 并且 采用二进制位操作 &amp;，相对于%能够提高运算效率，这就解释了 HashMap 的长度为什么是 2 的幂次方。</p>
+<h5 id="5-3ConcurrentHashMap-和-Hashtable-的区别"><a href="#5-3ConcurrentHashMap-和-Hashtable-的区别" class="headerlink" title="5.3ConcurrentHashMap 和 Hashtable 的区别"></a>5.3ConcurrentHashMap 和 Hashtable 的区别</h5><ul>
+<li>底层数据结构：ConcurrentHashMap在jdk1.7之前使用 分段数组+链表 实现，jdk1.8采用同HashMap一样的 数组 + 链表/红黑树。Hashtable 和 JDK1.8 之前的 HashMap 的底层数据结构类似都是采用 数组+链表 的形式。</li>
+<li>实现线程安全的方式：ConcurrentHashMap在jdk1.7之前使用分段数组segment 加锁实现，每一把锁只锁容器其中一部分数据，多线程访问容器里不同数据段的数据，就不会存在锁竞争，提高并发访问率。jdk1.8 采用了粒度更小的方式，直接对Node采用 volalite 关键字修饰，方法则用synchronized和CAS进行并发控制。</li>
+</ul>
 
 
                 <hr>
