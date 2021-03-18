@@ -12,19 +12,8 @@ tags:
 ### 简介
 之前了解过HashMap，HashMap是无序的，当我们希望有顺序地去存储key-value时，就需要使用LinkedHashMap了。
 
+LinkedHashMap由哈希表+双向链表组成，它继承自HashMap，重写了HashMap的一些方法，可以用于LRU算法，它和HashMap一样不是线程安全的。
 ```java
-package collection;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
-/**
- * @author zousy
- * @version v1.0
- * @Description
- * @date 2021-03-16 9:49
- */
 public class TestLinkedHashMap {
     public static void main(String[] args) {
         LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<String, String>(16,0.75f,true);
