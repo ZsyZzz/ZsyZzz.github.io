@@ -17,7 +17,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://shuyou.site/">
+    <link rel="canonical" href="https://shuyou.site/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -202,7 +202,8 @@
 本文介绍LinkedHashMap的相关知识
 
 简介之前了解过HashMap，HashMap是无序的，当我们希望有顺序地去存储key-value时，就需要使用LinkedHashMap了。
-12345678910111213141516171819202122232425262728293031323334353637383940package collection;import java......
+LinkedHashMap由哈希表+双向链表组成，它继承自HashMap，重写了HashMap的一些方法，可以用于LRU算法，它和HashMap一样不是线程安全的。
+123456789101112131......
         </div>
     </a>
     <p class="post-meta">
@@ -566,7 +567,6 @@ github地址
     </div>
 </div>
 
-
     <!-- Footer -->
     <!-- Footer -->
 <footer>
@@ -667,7 +667,7 @@ github地址
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("http://shuyou.site/js/jquery.tagcloud.js",function(){
+        async("https://shuyou.site/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -701,7 +701,7 @@ github地址
 
 
 <!-- Image to hack wechat -->
-<!-- <img src="http://shuyou.site/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0" /> -->
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
