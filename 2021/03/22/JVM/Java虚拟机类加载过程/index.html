@@ -247,6 +247,23 @@
 <p><img src="https://img-blog.csdnimg.cn/20210322180011328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>寻找类加载器</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> classloader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();</span><br><span class="line">        System.out.println(classLoader.toString());</span><br><span class="line">        System.out.println(classLoader.getParent());</span><br><span class="line">        System.out.println(classLoader.getParent().getParent());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>结果如下:<br><img src="https://img-blog.csdnimg.cn/20210322182737715.png" alt="在这里插入图片描述"><br>从上面的结果可以看出，当前类的加载器为AppClassLoader，它的父Loader是ExtClassLoader，并没有获取到ExtClassLoader的父Loader，原因是BootstrapLoader(引导类加载器)是用C语言实现的，找不到一个确定的返回父Loader的方式，于是就返回null。</p>
+<p><strong>接着介绍下JVM的类加载机制：</strong></p>
+<ul>
+<li><strong>全盘负责</strong>：当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入。</li>
+<li><strong>缓存机制</strong>：缓存机制将会保证所有加载过的Class都会被缓存，当程序中需要使用某个Class时，类加载器先从缓存区寻找该Class，只有缓存区不存在，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存入缓存区。这就是为什么修改了Class后，必须重启JVM，程序的修改才会生效。</li>
+<li><strong>双亲委派机制</strong>： 如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上，因此，所有的类加载请求最终都应该被传递到顶层的启动类加载器中，只有当父加载器在它的搜索范围中没有找到所需的类时，即无法完成该加载，子加载器才会尝试自己去加载该类。<br> 1、当AppClassLoader加载一个class时，它首先不会自己去尝试加载这个类，而是把类加载请求委派给父类加载器ExtClassLoader去完成。<br> 2、当ExtClassLoader加载一个class时，它首先也不会自己去尝试加载这个类，而是把类加载请求委派给BootStrapClassLoader去完成。<br> 3、如果BootStrapClassLoader加载失败(例如在$JAVA_HOME/jre/lib里未查找到该class)，会使用ExtClassLoader来尝试加载；<br> 4、若ExtClassLoader也加载失败，则会使用AppClassLoader来加载，如果AppClassLoader也加载失败，则会报出异常ClassNotFoundException。</li>
+</ul>
+<blockquote>
+<p>这里的父类并不是继承关系，而是一种组合关系。</p>
+</blockquote>
+<p><strong>类加载器的默认加载路径</strong><br>|类加载器|加载路径  |<br>|–|–|<br>| Bootstrap ClassLoader | 由系统属性sun.boot.class.path指定，通常是$JAVA_HOME/jre/lib |<br>| Extension ClassLoader |通常是$JAVA_HOMEx/jre/lib/ext，可通过系统属性java.ext.dirs查看路径  |<br>| Application ClassLoader | 通常是当前路径下的Class文件，可通过系统属性java.class.path查看 |</p>
+<p><strong>双亲委托加载方向</strong></p>
+<p><font color=#00f >类加载器在加载类时，只能向上递归委托其双亲进行类加载，而不可能从双亲再反向委派当前类加载器来进行类加载。</font></p>
+<p><strong>双亲委派优势</strong></p>
+<ul>
+<li>系统类防止内存中出现多份同样的字节码</li>
+<li>保证Java程序安全稳定运行</li>
+</ul>
 <p><strong>参考</strong></p>
 <ol>
 <li>深入理解Java虚拟机</li>
