@@ -256,7 +256,27 @@
 <blockquote>
 <p>这里的父类并不是继承关系，而是一种组合关系。</p>
 </blockquote>
-<p><strong>类加载器的默认加载路径</strong><br>|类加载器|加载路径  |<br>|–|–|<br>| Bootstrap ClassLoader | 由系统属性sun.boot.class.path指定，通常是$JAVA_HOME/jre/lib |<br>| Extension ClassLoader |通常是$JAVA_HOMEx/jre/lib/ext，可通过系统属性java.ext.dirs查看路径  |<br>| Application ClassLoader | 通常是当前路径下的Class文件，可通过系统属性java.class.path查看 |</p>
+<p><strong>类加载器的默认加载路径</strong></p>
+<table>
+<thead>
+<tr>
+<th>类加载器</th>
+<th>加载路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bootstrap ClassLoader</td>
+<td>由系统属性sun.boot.class.path指定，通常是$JAVA_HOME/jre/lib</td>
+</tr>
+<tr>
+<td>Extension ClassLoader</td>
+<td>通常是$JAVA_HOMEx/jre/lib/ext，可通过系统属性java.ext.dirs查看路径</td>
+</tr>
+<tr>
+<td>Application ClassLoader</td>
+<td>通常是当前路径下的Class文件，可通过系统属性java.class.path查看</td>
+</tr>
+</tbody></table>
 <p><strong>双亲委托加载方向</strong></p>
 <p><font color=#00f >类加载器在加载类时，只能向上递归委托其双亲进行类加载，而不可能从双亲再反向委派当前类加载器来进行类加载。</font></p>
 <p><strong>双亲委派优势</strong></p>
