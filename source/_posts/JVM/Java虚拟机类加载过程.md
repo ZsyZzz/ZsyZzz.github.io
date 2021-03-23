@@ -98,6 +98,33 @@ public class ClassLoaderTest {
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210322182737715.png)
 从上面的结果可以看出，当前类的加载器为AppClassLoader，它的父Loader是ExtClassLoader，并没有获取到ExtClassLoader的父Loader，原因是BootstrapLoader(引导类加载器)是用C语言实现的，找不到一个确定的返回父Loader的方式，于是就返回null。
 
+**接着介绍下JVM的类加载机制：**
+ - **全盘负责**：当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入。
+ - **缓存机制**：缓存机制将会保证所有加载过的Class都会被缓存，当程序中需要使用某个Class时，类加载器先从缓存区寻找该Class，只有缓存区不存在，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存入缓存区。这就是为什么修改了Class后，必须重启JVM，程序的修改才会生效。
+ - **双亲委派机制**： 如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上，因此，所有的类加载请求最终都应该被传递到顶层的启动类加载器中，只有当父加载器在它的搜索范围中没有找到所需的类时，即无法完成该加载，子加载器才会尝试自己去加载该类。
+	1、当AppClassLoader加载一个class时，它首先不会自己去尝试加载这个类，而是把类加载请求委派给父类加载器ExtClassLoader去完成。
+	2、当ExtClassLoader加载一个class时，它首先也不会自己去尝试加载这个类，而是把类加载请求委派给BootStrapClassLoader去完成。
+	3、如果BootStrapClassLoader加载失败(例如在$JAVA_HOME/jre/lib里未查找到该class)，会使用ExtClassLoader来尝试加载；
+	4、若ExtClassLoader也加载失败，则会使用AppClassLoader来加载，如果AppClassLoader也加载失败，则会报出异常ClassNotFoundException。
+
+>这里的父类并不是继承关系，而是一种组合关系。
+
+**类加载器的默认加载路径**
+|类加载器|加载路径  |
+|--|--|
+| Bootstrap ClassLoader | 由系统属性sun.boot.class.path指定，通常是$JAVA_HOME/jre/lib |
+| Extension ClassLoader |通常是$JAVA_HOMEx/jre/lib/ext，可通过系统属性java.ext.dirs查看路径  |
+| Application ClassLoader | 通常是当前路径下的Class文件，可通过系统属性java.class.path查看 |
+
+**双亲委托加载方向**
+
+<font color=#00f >类加载器在加载类时，只能向上递归委托其双亲进行类加载，而不可能从双亲再反向委派当前类加载器来进行类加载。</font>
+
+**双亲委派优势**
+
+ - 系统类防止内存中出现多份同样的字节码
+ - 保证Java程序安全稳定运行
+
 
 **参考**
 
