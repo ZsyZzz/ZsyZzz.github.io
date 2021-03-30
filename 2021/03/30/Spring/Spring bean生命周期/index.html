@@ -13,11 +13,11 @@
 
     <title>
         
-          About - ShuYou&#39;s Blog
+          Spring bean的生命周期相关知识 - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/about/">
+    <link rel="canonical" href="https://shuyou.site/2021/03/30/Spring/Spring bean生命周期/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -153,159 +153,176 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>About</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">花有重开日，人无再少年。</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                        
+                    </div>
+                    <h1>Spring bean的生命周期相关知识</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Zsy on
+                        2021-03-30
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <p><strong>20年毕业，现在在深圳996</strong></p>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文简单介绍Spring bean的生命周期相关知识</p>
+</blockquote>
+<h3 id="Spring-IOC-简介"><a href="#Spring-IOC-简介" class="headerlink" title="Spring IOC 简介"></a>Spring IOC 简介</h3><p><strong>IOC</strong>：Inversion of Control,即控制反转。传统Java程序中，我们是自己创建对象，而Spring IoC 是有一个容器来保管我们创建的对象，即将对象交给Spring 容器进行管理。</p>
+<p><strong>bean</strong>：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理的对象称为 bean。 bean 是一个由 Spring IoC 容器实例化，组装和管理的对象。</p>
+<p><strong>BeanDefinition</strong>：bean的定义类，用来存储bean的所有属性和方法。</p>
+<p><strong>BeanFactory</strong>：BeanFactory接口是Spring IoC的基础。</p>
+<p><strong>ApplicationContext</strong>：是BeanFactory的子接口，同时还继承了其他的接口，是相对比较高级的 IoC 容器实现。</p>
+<p><strong>bean生命周期核心流程</strong>：</p>
+<ol>
+<li>实例化    Instantiation</li>
+<li>注入属性        Populate</li>
+<li>初始化    Initialization</li>
+<li>销毁    Destruction</li>
+</ol>
+<p><strong>bean生命周期经历了各种方法的调用，可以分为几类</strong>：</p>
+<ol>
+<li>Bean自身的方法：这个包括了Bean本身调用的方法和通过配置文件中<bean>的init-method和destroy-method指定的方法</li>
+<li>Bean级生命周期接口方法：这个包括了BeanNameAware、BeanFactoryAware、InitializingBean和DiposableBean这些接口的方法</li>
+<li>容器级生命周期接口方法：这个包括了InstantiationAwareBeanPostProcessor 和 BeanPostProcessor 这两个接口实现，一般称它们的实现类为“后置处理器”。</li>
+</ol>
+<h3 id="Spring-Bean生命周期"><a href="#Spring-Bean生命周期" class="headerlink" title="Spring Bean生命周期"></a>Spring Bean生命周期</h3><p><img src="https://img-blog.csdnimg.cn/20210330191031791.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70#pic_center" alt="Spring bean生命周期"></p>
+<p><strong>测试代码</strong>：<a target="_blank" rel="noopener" href="https://github.com/ZouShuYou/sping-boot-demos/tree/master/spring-bean-lifecycle">bean生命周期</a></p>
+<h3 id="扩展点"><a href="#扩展点" class="headerlink" title="扩展点"></a>扩展点</h3><p><strong>4个后置处理器</strong>：</p>
+<ol>
+<li>InstantiationAwareBeanPostProcessor</li>
+<li>SmartInstantiationAwareBeanPostProcessor</li>
+<li>MergedBeanDefinitionPostProcessor</li>
+<li>SmartInitializingSingleton</li>
+</ol>
+<p><strong>影响多个Bean</strong>：</p>
+<ul>
+<li>BeanPostProcessor ：<ol>
+<li>postProcessBeforeInitialization</li>
+<li>postProcessAfterInitialization</li>
+</ol>
+</li>
+<li>InstantiationAwareBeanPostProcessor<ol>
+<li>postProcessBeforeInstantiation</li>
+<li>postProcessAfterInstantiation</li>
+<li>postProcessProperties</li>
+</ol>
+</li>
+<li>MergedBeanDefinitionPostProcessor<ol>
+<li>postProcessMergedBeanDefinition</li>
+</ol>
+</li>
+<li>SmartInstantiationAwareBeanPostProcessor<ol>
+<li>determineCandidateConstructors</li>
+<li>getEarlyBeanReference</li>
+</ol>
+</li>
+</ul>
+<p><strong>影响单个Bean</strong>：</p>
+<ul>
+<li>BeanNameAware</li>
+<li>BeanClassLoaderAware</li>
+<li>BeanFactoryAware</li>
+<li>EnvironmentAware</li>
+<li>EmbeddedValueResolverAware</li>
+<li>ApplicationContextAware</li>
+<li>InitializingBean</li>
+<li>DisposableBean</li>
+</ul>
+<p><strong>参考</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23473123/article/details/76610052?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs&dist_request_id=1328740.50450.16170841210074475&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs">spring bean生命周期</a></li>
+</ol>
 
 
-                <!-- 如果开启评论功能 -->
+                <hr>
+
                 
-                    <hr>
 
+                <ul class="pager">
                     
-
                     
-
-
+                        <li class="next">
+                            <a href="/2021/03/25/JVM/Java垃圾回收/" data-toggle="tooltip" data-placement="top" title="Java垃圾回收">Next Post &rarr;</a>
+                        </li>
                     
+                </ul>
 
-                    
-
-
+                
 
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java集合" title="Java集合" rel="4">Java集合</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java并发" title="Java并发" rel="4">Java并发</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring" title="Spring" rel="4">Spring</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Spring AOP" title="Spring AOP" rel="2">Spring AOP</a>
-                            
+                       
+                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
                         
                     </div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/me.jpg" />
-                        
-
-                        
-                            <p>花有重开日，人无再少年。</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <!-- Footer -->
