@@ -96,14 +96,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -227,24 +227,7 @@
 <li>没有键值相等的节点。</li>
 </ul>
 <p><strong>链表方式实现</strong>：</p>
-<pre><code class="java">public class BSTree&lt;T extends Comparable&lt;T&gt;&gt; &#123;
-
-    private BSTNode&lt;T&gt; mRoot;    // 根结点
-
-    public class BSTNode&lt;T extends Comparable&lt;T&gt;&gt; &#123;
-        public T key;                // 关键字(键值)
-        public BSTNode&lt;T&gt; left;      // 左孩子
-        public BSTNode&lt;T&gt; right;     // 右孩子
-        public BSTNode&lt;T&gt; parent;    // 父结点
-
-        public BSTNode(T key, BSTNode&lt;T&gt; parent, BSTNode&lt;T&gt; left, BSTNode&lt;T&gt; right) &#123;
-            this.key = key;
-            this.parent = parent;
-            this.left = left;
-            this.right = right;
-        &#125;
-    &#125;
-&#125;``</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BSTree</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BSTNode&lt;T&gt; mRoot;    <span class="comment">// 根结点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BSTNode</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> T key;                <span class="comment">// 关键字(键值)</span></span><br><span class="line">        <span class="keyword">public</span> BSTNode&lt;T&gt; left;      <span class="comment">// 左孩子</span></span><br><span class="line">        <span class="keyword">public</span> BSTNode&lt;T&gt; right;     <span class="comment">// 右孩子</span></span><br><span class="line">        <span class="keyword">public</span> BSTNode&lt;T&gt; parent;    <span class="comment">// 父结点</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">BSTNode</span><span class="params">(T key, BSTNode&lt;T&gt; parent, BSTNode&lt;T&gt; left, BSTNode&lt;T&gt; right)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.key = key;</span><br><span class="line">            <span class="keyword">this</span>.parent = parent;</span><br><span class="line">            <span class="keyword">this</span>.left = left;</span><br><span class="line">            <span class="keyword">this</span>.right = right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
                 <hr>
@@ -252,6 +235,10 @@
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/04/01/Java 并发/Java线程池/" data-toggle="tooltip" data-placement="top" title="Java线程池相关知识">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">

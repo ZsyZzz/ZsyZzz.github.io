@@ -96,14 +96,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -187,6 +187,34 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2021/04/01/Java 并发/Java线程池/">
+        <h2 class="post-title">
+            Java线程池相关知识
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+本文介绍Java线程池相关知识
+
+前言线程池：线程池是一种基于池化思想管理线程的工具，经常出现再多线程服务器中。
+线程池解决的问题是什么：线程池解决的核心问题就是资源管理问题。在并发环境下，系统不能确定任意时刻，有多少任务需要执行，有多少资源需要投入。会存在下列问题：
+
+频繁申请/销毁资源和调度资源，将带来额外的消耗，可能会非常巨大。
+对资源无限申请缺乏抑制手段，可能会引发系统资源耗尽的风......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Zsy on
+        2021-04-01
+    </p>
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -431,31 +459,6 @@ Condition接口的awiat() 和 signAll()方法 + 加锁机制synchronized和lock
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2021/03/10/Java 并发/ReentrantReadWriteLock/">
-        <h2 class="post-title">
-            深入了解ReentrantReadWriteLock
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-本文分析JDK1.8中的ReentrantReadWriteLock类
-
-简介由于ReentrantLock是独占锁，某时只有一个线程可以获取该锁，而实际中会有写少读多的场景，所以ReentrantReadWriteLock应运而生，采用读写分离的策略，允许多个线程同时获取该锁。
-ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一个WriteLoc......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-10
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -493,9 +496,9 @@ ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一�
                             
                         
                             
-                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
-                            
                         
+                            
+                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
                             
                         
                             
@@ -503,7 +506,7 @@ ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一�
                             
                         
                             
-                            <a href="/tags/#Java并发" title="Java并发" rel="4">Java并发</a>
+                            <a href="/tags/#Java并发" title="Java并发" rel="5">Java并发</a>
                             
                         
                             

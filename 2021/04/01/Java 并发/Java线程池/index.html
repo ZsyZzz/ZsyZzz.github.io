@@ -13,11 +13,11 @@
 
     <title>
         
-          Spring bean的生命周期相关知识 - ShuYou&#39;s Blog
+          Java线程池相关知识 - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/2021/03/30/Spring/Spring bean生命周期/">
+    <link rel="canonical" href="https://shuyou.site/2021/04/01/Java 并发/Java线程池/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -171,14 +171,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                          <a class="tag" href="/tags/#Java并发" title="Java并发">Java并发</a>
                         
                     </div>
-                    <h1>Spring bean的生命周期相关知识</h1>
+                    <h1>Java线程池相关知识</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Zsy on
-                        2021-03-30
+                        2021-04-01
                     </span>
                 </div>
             </div>
@@ -198,72 +198,79 @@
                 post-container">
 
                 <blockquote>
-<p>本文简单介绍Spring bean的生命周期相关知识</p>
+<p>本文介绍Java线程池相关知识</p>
 </blockquote>
-<h3 id="Spring-IOC-简介"><a href="#Spring-IOC-简介" class="headerlink" title="Spring IOC 简介"></a>Spring IOC 简介</h3><p><strong>IOC</strong>：Inversion of Control,即控制反转。传统Java程序中，我们是自己创建对象，而Spring IoC 是有一个容器来保管我们创建的对象，即将对象交给Spring 容器进行管理。</p>
-<p><strong>bean</strong>：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理的对象称为 bean。 bean 是一个由 Spring IoC 容器实例化，组装和管理的对象。</p>
-<p><strong>BeanDefinition</strong>：bean的定义类，用来存储bean的所有属性和方法。</p>
-<p><strong>BeanFactory</strong>：BeanFactory接口是Spring IoC的基础。</p>
-<p><strong>ApplicationContext</strong>：是BeanFactory的子接口，同时还继承了其他的接口，是相对比较高级的 IoC 容器实现。</p>
-<p><strong>bean生命周期核心流程</strong>：</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>线程池</strong>：线程池是一种基于池化思想管理线程的工具，经常出现再多线程服务器中。</p>
+<p><strong>线程池解决的问题是什么</strong>：<br>线程池解决的核心问题就是资源管理问题。在并发环境下，系统不能确定任意时刻，有多少任务需要执行，有多少资源需要投入。会存在下列问题：</p>
 <ol>
-<li>实例化    Instantiation</li>
-<li>注入属性        Populate</li>
-<li>初始化    Initialization</li>
-<li>销毁    Destruction</li>
+<li>频繁申请/销毁资源和调度资源，将带来额外的消耗，可能会非常巨大。</li>
+<li>对资源无限申请缺乏抑制手段，可能会引发系统资源耗尽的风险。</li>
+<li>系统无法合理管理内部的资源分布，会降低系统的稳定性。</li>
 </ol>
-<p><strong>bean生命周期经历了各种方法的调用，可以分为几类</strong>：</p>
-<ol>
-<li>Bean自身的方法：这个包括了Bean本身调用的方法和通过配置文件中<bean>的init-method和destroy-method指定的方法</li>
-<li>Bean级生命周期接口方法：这个包括了BeanNameAware、BeanFactoryAware、InitializingBean和DiposableBean这些接口的方法</li>
-<li>容器级生命周期接口方法：这个包括了InstantiationAwareBeanPostProcessor 和 BeanPostProcessor 这两个接口实现，一般称它们的实现类为“后置处理器”。</li>
-</ol>
-<h3 id="Spring-Bean生命周期"><a href="#Spring-Bean生命周期" class="headerlink" title="Spring Bean生命周期"></a>Spring Bean生命周期</h3><p><img src="https://img-blog.csdnimg.cn/20210330191031791.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70#pic_center" alt="Spring bean生命周期"></p>
-<p><strong>测试代码</strong>：<a target="_blank" rel="noopener" href="https://github.com/ZouShuYou/sping-boot-demos/tree/master/spring-bean-lifecycle">bean生命周期</a></p>
-<h3 id="扩展点"><a href="#扩展点" class="headerlink" title="扩展点"></a>扩展点</h3><p><strong>4个后置处理器</strong>：</p>
-<ol>
-<li>InstantiationAwareBeanPostProcessor</li>
-<li>SmartInstantiationAwareBeanPostProcessor</li>
-<li>MergedBeanDefinitionPostProcessor</li>
-<li>SmartInitializingSingleton</li>
-</ol>
-<p><strong>影响多个Bean</strong>：</p>
+<p>为解决资源分配这个问题，线程池采用了“池化”（Pooling）思想。池化，顾名思义，是为了最大化收益并最小化风险，而将资源统一在一起管理的一种思想。</p>
+<p><strong>线程池的优点</strong>：</p>
 <ul>
-<li>BeanPostProcessor ：<ol>
-<li>postProcessBeforeInitialization</li>
-<li>postProcessAfterInitialization</li>
-</ol>
-</li>
-<li>InstantiationAwareBeanPostProcessor<ol>
-<li>postProcessBeforeInstantiation</li>
-<li>postProcessAfterInstantiation</li>
-<li>postProcessProperties</li>
-</ol>
-</li>
-<li>MergedBeanDefinitionPostProcessor<ol>
-<li>postProcessMergedBeanDefinition</li>
-</ol>
-</li>
-<li>SmartInstantiationAwareBeanPostProcessor<ol>
-<li>determineCandidateConstructors</li>
-<li>getEarlyBeanReference</li>
-</ol>
-</li>
+<li>降低资源消耗：通过池化技术重复利用已创建的线程，降低线程创建和销毁造成的损耗。</li>
+<li>提高响应速度：任务到达时，无需等待线程创建即可立即执行。</li>
+<li>提高线程的可管理性：线程是稀缺资源，如果无限制创建，不仅会消耗系统资源，还会因为线程的不合理分布导致资源调度失衡，降低系统的稳定性。使用线程池可以进行统一的分配、调优和监控。</li>
+<li>提供更多更强大的功能：线程池具备可拓展性，允许开发人员向其中增加更多的功能。比如延时定时线程池ScheduledThreadPoolExecutor，就允许任务延期执行或定期执行。</li>
 </ul>
-<p><strong>影响单个Bean</strong>：</p>
-<ul>
-<li>BeanNameAware</li>
-<li>BeanClassLoaderAware</li>
-<li>BeanFactoryAware</li>
-<li>EnvironmentAware</li>
-<li>EmbeddedValueResolverAware</li>
-<li>ApplicationContextAware</li>
-<li>InitializingBean</li>
-<li>DisposableBean</li>
-</ul>
-<p><strong>参考</strong>：</p>
+<h3 id="TheadPoolExecutor源码设计"><a href="#TheadPoolExecutor源码设计" class="headerlink" title="TheadPoolExecutor源码设计"></a>TheadPoolExecutor源码设计</h3><p>Java中线程池核心实现类是ThreadPoolExecutor,它的继承关系：<br><img src="https://img-blog.csdnimg.cn/2021040116000948.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70#pic_center" alt=" ThreadPoolExecutor 继承关系"></p>
+<p><strong>运行机制</strong>：<br>ThreadPoolExecutor内部实际上构建了一个生产者消费者模型，将线程和任务两者解耦，并不直接关联。线程池的运行主要分为两部分：任务管理、线程管理。任务管理部分充当生产者的角色，当任务提交后，线程池会判断该任务后续的流转：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23473123/article/details/76610052?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs&dist_request_id=1328740.50450.16170841210074475&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs">spring bean生命周期</a></li>
+<li>直接申请线程执行任务</li>
+<li>缓存到队列中等待线程执行</li>
+<li>拒绝该任务</li>
+</ol>
+<p>线程管理部分是消费者，它们被统一维护在线程池内，根据任务请求进行线程的分配，当线程执行完任务后会继续获取新的任务去执行，最终当线程获取不到任务时，线程就会被回收。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3d9113e3961a68dc85fe6e15fd52ea70.png#pic_center" alt="ThreadPoolExecutor运行流程"></p>
+<p><strong>运行状态</strong>：<br>ThreadPoolExecutor的运行状态有5种，分别为：</p>
+<table>
+<thead>
+<tr>
+<th>运行状态</th>
+<th>状态描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RUNNING</td>
+<td>能接受新提交的任务，且也能处理阻塞队列中的任务</td>
+</tr>
+<tr>
+<td>SHUTDOWN</td>
+<td>不再接受新提交的任务，但是能处理阻塞队列中的任务</td>
+</tr>
+<tr>
+<td>STOP</td>
+<td>不能接受新提交的任务，也不能处理阻塞队列中的任务，会中断正在处理任务的线程</td>
+</tr>
+<tr>
+<td>TIDYING</td>
+<td>所有任务都已经终止了，workerCount（有效线程数）为0</td>
+</tr>
+<tr>
+<td>TERMINATED</td>
+<td>在terminated()方法执行完后进入该状态</td>
+</tr>
+</tbody></table>
+<p>其生命周期转换如下入所示：<br><img src="https://img-blog.csdnimg.cn/img_convert/432693a9f531da06274114af24421f9b.png#pic_center" alt="线程池生命周期"><br><strong>任务调度</strong>：<br>当使用execute方法提交一个任务到ThreadPoolExecutor时，会检查现在的线程池运行状态、运行线程数、运行策略，决定接下来执行的流程，是直接申请线程执行，或是缓冲到队列中执行，亦或是直接拒绝该任务。其执行过程如下：</p>
+<ol>
+<li>首先检测线程池运行状态，如果不是RUNNING，则直接拒绝，线程池要保证在RUNNING的状态下执行任务。</li>
+<li>如果workerCount &lt; corePoolSize，则创建并启动一个线程来执行新提交的任务。</li>
+<li>如果workerCount &gt;= corePoolSize，则判断任务阻塞队列是否已满，若未蛮则将任务添加到该阻塞队列，若已满则判断工作线程数是否大于最大线程数，如果小于，则创建并启动一个线程来执行新提交的任务，如果大于则根据拒绝策略来处理该任务，默认的处理方式是直接抛异常。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c56abc7d2dec4791faccebd708452fd6.png#pic_center" alt="在这里插入图片描述"><br><strong>任务申请</strong>：<br>由上文的任务分配部分可知，任务的执行有两种可能：一种是任务直接由新创建的线程执行。另一种是线程从任务队列中获取任务然后执行，执行完任务的空闲线程会再次去从队列中申请任务再去执行。第一种情况仅出现在线程初始创建的时候，第二种是线程获取任务绝大多数的情况。<br><img src="https://img-blog.csdnimg.cn/img_convert/11553b961689e8854be6c5745e657ff1.png#pic_center" alt="任务流程图"><br><strong>任务拒绝</strong>：<br>拒绝策略是一个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RejectedExecutionHandler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rejectedExecution</span><span class="params">(Runnable r, ThreadPoolExecutor executor)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用户可以通过实现这个接口去定制拒绝策略，也可以选择JDK提供的四种已有拒绝策略，其特点如下：<br><img src="https://img-blog.csdnimg.cn/img_convert/f7f391628940c6cfe8ba7e568ef6a03d.png#pic_center" alt="拒绝策略"></p>
+<p><strong>Worker线程</strong>：<br>Worker这个工作线程，实现了Runnable接口，并持有一个线程Thread，一个初始化的任务firstTask。thread是在调用构造方法时通过ThreadFactory来创建的线程，firstTask用它来保存传入的第一个任务，这个任务可以有也可以为null。如果这个值是非空的，那么线程就会在启动初期立即执行这个任务，也就对应核心线程创建时的情况；如果这个值是null，那么就需要创建一个线程去执行任务列表（workQueue）中的任务，也就是非核心线程的创建。</p>
+<p>线程池需要管理线程的生命周期，需要在线程长时间不运行的时候进行回收。线程池使用一张Hash表去持有线程的引用，这样可以通过添加引用、移除引用这样的操作来控制线程的生命周期。这个时候重要的就是如何判断线程是否在运行。</p>
+<p>Worker是通过继承AQS，使用AQS来实现独占锁这个功能。没有使用可重入锁ReentrantLock，而是使用AQS，为的就是实现不可重入的特性去反应线程现在的执行状态。</p>
+<p><strong>addWorker增加工作线程</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">addWorker</span><span class="params">(Runnable firstTask, <span class="keyword">boolean</span> core)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addWorker方法有两个参数：firstTask、core。firstTask参数用于指定新增的线程执行的第一个任务，该参数可以为空；core参数为true表示在新增线程时会判断当前活动线程数是否少于corePoolSize，false表示新增线程前需要判断当前活动线程数是否少于maximumPoolSize</p>
+<p><strong>执行流程</strong>：<br><img src="https://img-blog.csdnimg.cn/img_convert/e21ae15778df5b8028bb9088424d196a.png#pic_center" alt="执行流程"><br><strong>参考</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html">Java线程池实现原理</a></li>
 </ol>
 
 
@@ -273,13 +280,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/03/31/算法/树/二叉树/" data-toggle="tooltip" data-placement="top" title="二叉树相关知识">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/03/25/JVM/Java垃圾回收/" data-toggle="tooltip" data-placement="top" title="Java垃圾回收">Next Post &rarr;</a>
+                            <a href="/2021/03/31/算法/树/二叉树/" data-toggle="tooltip" data-placement="top" title="二叉树相关知识">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -306,7 +309,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                          <a class="tag" href="/tags/#Java并发" title="Java并发">Java并发</a>
                         
                     </div>
                 </section>
