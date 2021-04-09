@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A blog belongs to ShuYou">
+    <meta name="keyword"  content="blog life idea">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Mysql相关知识（零） - ShuYou&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://shuyou.site/2021/04/09/Mysql/Mysql相关知识(零)/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                        
+                    </div>
+                    <h1>Mysql相关知识（零）</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Zsy on
+                        2021-04-09
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文介绍Mysql操作和语句相关知识，包括增删改查、建表、函数、过程等相关知识。</p>
+</blockquote>
+<h3 id="1-操作"><a href="#1-操作" class="headerlink" title="1.操作"></a>1.操作</h3><p><strong>连接Mysql</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mysql</span> <span class="string">-h</span> <span class="string">主机地址</span> <span class="string">-u</span> <span class="string">用户名</span> <span class="string">-p</span> <span class="string">密码</span></span><br><span class="line"></span><br><span class="line"><span class="string">本地连接：</span></span><br><span class="line"><span class="string">mysql</span> <span class="string">-u</span> <span class="string">root</span> <span class="string">-p</span></span><br></pre></td></tr></table></figure>
+<p><strong>修改密码</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mysqladmin</span> <span class="string">-u</span> <span class="string">用户名</span> <span class="string">-p</span> <span class="string">旧密码</span> <span class="string">password</span> <span class="string">新密码</span></span><br><span class="line"></span><br><span class="line"><span class="string">或者</span></span><br><span class="line"></span><br><span class="line"><span class="string">alter</span> <span class="string">user</span> <span class="string">`username`@`host`</span> <span class="string">identified</span> <span class="string">by</span> <span class="string">&#x27;password&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>增加权限</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">grant</span> <span class="string">all</span> <span class="string">privileges</span> <span class="string">on</span> <span class="string">databasename.tablename</span> <span class="string">to</span> <span class="string">用户名@登录主机</span> <span class="string">identified</span> <span class="string">by</span> <span class="string">密码</span></span><br><span class="line"></span><br><span class="line"><span class="string">增加一个用户</span> <span class="string">test1</span> <span class="string">密码为</span> <span class="string">abc，让他可以在任何主机上登录，并对所有数据库</span></span><br><span class="line"><span class="string">有查询、插入、修改、删除的权限：</span></span><br><span class="line"></span><br><span class="line"><span class="string">grant</span> <span class="string">select,insert,update,delete</span> <span class="string">on</span> <span class="string">.</span> <span class="string">to</span> <span class="string">`test1`@`localhost`</span> <span class="string">identified</span> <span class="string">by</span> <span class="string">&quot;abc&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>删除授权</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">revoke</span> <span class="string">all</span> <span class="string">privileges</span> <span class="string">on</span>  <span class="string">databasename.tablename</span> <span class="string">from</span> <span class="string">`username`@`host`</span></span><br></pre></td></tr></table></figure>
+<p><strong>创建用户</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">create</span> <span class="string">user</span> <span class="string">`username`@`host`</span> <span class="string">identified</span> <span class="string">by</span> <span class="string">&#x27;password&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">要求使用ssl登录</span></span><br><span class="line"><span class="string">create</span> <span class="string">user</span> <span class="string">`username`@`host`</span> <span class="string">identified</span> <span class="string">by</span> <span class="string">&#x27;password&#x27;</span> <span class="string">require</span> <span class="string">ssl;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>锁定用户</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">alter</span> <span class="string">user</span> <span class="string">`username`@`host`</span> <span class="string">account</span> <span class="string">lock;</span></span><br><span class="line"></span><br><span class="line"><span class="string">解锁</span></span><br><span class="line"><span class="string">alter</span> <span class="string">user</span> <span class="string">`username`@`host`</span> <span class="string">account</span> <span class="string">unlock;</span></span><br></pre></td></tr></table></figure>
+<p><strong>删除用户</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">drop</span> <span class="string">user</span> <span class="string">`username`@`host`</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h3><p><strong>数据库</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">show</span> <span class="string">databases;</span> <span class="comment">#显示数据库</span></span><br><span class="line"></span><br><span class="line"><span class="string">create</span> <span class="string">database</span> [<span class="string">if</span> <span class="string">not</span> <span class="string">exists</span>] <span class="string">t</span> [<span class="string">character</span> <span class="string">set=&#x27;utf8&#x27;</span>]<span class="string">;</span> <span class="comment">#建数据库</span></span><br><span class="line"></span><br><span class="line"><span class="string">use</span> <span class="string">t;</span> <span class="comment">#使用数据库</span></span><br><span class="line"></span><br><span class="line"><span class="string">drop</span> <span class="string">database</span> <span class="string">t;</span> <span class="comment">#删除数据库</span></span><br><span class="line"></span><br><span class="line"><span class="string">show</span> <span class="string">tables;</span> <span class="comment">#显示表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#建表</span></span><br><span class="line"><span class="string">CREATE</span> <span class="string">TABLE</span> <span class="string">`T`</span> <span class="string">(</span></span><br><span class="line">  <span class="string">`id`</span> <span class="string">int</span> <span class="string">NOT</span> <span class="literal">NULL</span> <span class="string">AUTO_INCREMENT,</span></span><br><span class="line">  <span class="string">`a`</span> <span class="string">varchar(30)</span> <span class="string">DEFAULT</span> <span class="literal">NULL</span><span class="string">,</span></span><br><span class="line">  <span class="string">`b`</span> <span class="string">int</span> <span class="string">DEFAULT</span> <span class="literal">NULL</span><span class="string">,</span></span><br><span class="line">  <span class="string">PRIMARY</span> <span class="string">KEY</span> <span class="string">(`id`),</span></span><br><span class="line">  <span class="string">UNIQUE</span> <span class="string">KEY</span> <span class="string">`a`</span> <span class="string">(`a`),</span></span><br><span class="line">  <span class="string">KEY</span> <span class="string">`b`</span> <span class="string">(`b`)</span></span><br><span class="line"><span class="string">)</span> <span class="string">ENGINE=InnoDB</span> <span class="string">DEFAULT</span> <span class="string">CHARSET=utf8</span> <span class="string">COLLATE=utf8_bin;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看建表语句</span></span><br><span class="line"><span class="string">show</span> <span class="string">create</span> <span class="string">table</span> <span class="string">`T`;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示表结构</span></span><br><span class="line"><span class="string">desc</span> <span class="string">T;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除表</span></span><br><span class="line"><span class="string">drop</span> <span class="string">table</span> [<span class="string">if</span> <span class="string">exists</span>] <span class="string">T;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>表复制、备份、清除</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#会造成索引丢失，只有表结构，没有主键等信息。</span></span><br><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">新表名</span> <span class="string">select</span> <span class="string">*</span> <span class="string">from</span> <span class="string">T;</span></span><br><span class="line"><span class="string">或</span></span><br><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">新表名</span> <span class="string">as(select</span> <span class="string">*</span> <span class="string">from</span> <span class="string">T);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#讲旧表中的数据移入新表</span></span><br><span class="line"><span class="string">insert</span> <span class="string">into</span> <span class="string">新表</span> <span class="string">select</span> <span class="string">*</span> <span class="string">from</span> <span class="string">T;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#清空表数据</span></span><br><span class="line"><span class="string">truncate</span> <span class="string">table</span> <span class="string">T;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>表相关操作</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改列名</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">T</span> <span class="string">change</span> <span class="string">&lt;原字段名称&gt;</span> <span class="string">&lt;新字段名称</span> <span class="string">字段类型&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改表名</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">T</span> <span class="string">rename</span> <span class="string">newT</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改字段类型及指定是否为空</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">T</span> <span class="string">modify(or</span> <span class="string">change)</span> <span class="string">&lt;字段名称&gt;</span> <span class="string">&lt;字段类型&gt;</span> [<span class="string">not</span> <span class="literal">null</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#增加一个字段</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">T</span> <span class="string">add</span> <span class="string">column</span> <span class="string">字段名称</span> <span class="string">字段类型</span> <span class="string">(after</span> <span class="string">某个字段)</span> <span class="string">(first)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除字段</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">&lt;表名称&gt;</span> <span class="string">drop</span> <span class="string">column</span> <span class="string">&lt;列名&gt;;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查表</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">SELECT</span> [<span class="string">DISTINCT</span>] <span class="string">&lt;字段名称,用逗号隔开/*&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">FROM</span> <span class="string">&lt;left_table&gt;</span> [<span class="string">&lt;join_type&gt;</span> <span class="string">JOIN</span> <span class="string">&lt;right_table&gt;</span> <span class="string">ON</span> <span class="string">&lt;连接条件&gt;</span>]</span><br><span class="line"></span><br><span class="line"><span class="string">WHERE</span> <span class="string">&lt;where条件&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">GROUP</span> <span class="string">BY</span> <span class="string">&lt;分组字段&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">HAVING</span> <span class="string">&lt;筛选条件&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">ORDER</span> <span class="string">BY</span> <span class="string">&lt;排序条件&gt;</span> [<span class="string">desc/asc</span>]</span><br><span class="line"></span><br><span class="line"><span class="string">LIMIT</span> <span class="string">n[,</span> <span class="string">m]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>增改删</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#增加数据</span></span><br><span class="line"><span class="string">insert</span> <span class="string">into</span> <span class="string">T</span> <span class="string">values();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#更改数据</span></span><br><span class="line"><span class="string">update</span> <span class="string">T</span> <span class="string">set</span> <span class="string">***</span> <span class="string">where</span> <span class="string">**</span> <span class="string">=</span> <span class="string">**</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="string">delete</span> <span class="string">FROM</span> <span class="string">T</span> <span class="string">WHERE</span> <span class="string">**</span> <span class="string">=</span> <span class="string">**</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建索引</span></span><br><span class="line"><span class="string">--</span> <span class="string">普通索引</span></span><br><span class="line"><span class="string">ALTER</span> <span class="string">TABLE</span> <span class="string">表名称</span> <span class="string">ADD</span> <span class="string">INDEX</span> <span class="string">index_name</span> <span class="string">(column_list)</span></span><br><span class="line"><span class="string">--</span> <span class="string">唯一索引</span></span><br><span class="line"><span class="string">ALTER</span> <span class="string">TABLE</span> <span class="string">表名称</span> <span class="string">ADD</span> <span class="string">UNIQUE</span> <span class="string">(column_list)</span></span><br><span class="line"><span class="string">--</span> <span class="string">主键索引</span></span><br><span class="line"><span class="string">ALTER</span> <span class="string">TABLE</span> <span class="string">表名称</span> <span class="string">ADD</span> <span class="string">PRIMARY</span> <span class="string">KEY</span> <span class="string">(column_list)</span></span><br><span class="line"></span><br><span class="line"><span class="string">或者</span></span><br><span class="line"><span class="string">CREATE</span> <span class="string">INDEX</span> <span class="string">index_name</span> <span class="string">ON</span> <span class="string">表名称</span> <span class="string">(column_list)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除索引</span></span><br><span class="line"><span class="string">DROP</span> <span class="string">INDEX</span> <span class="string">index_name</span> <span class="string">ON</span> <span class="string">表名称;</span></span><br><span class="line"><span class="string">ALTER</span> <span class="string">TABLE</span> <span class="string">表名称</span> <span class="string">DROP</span> <span class="string">INDEX</span> <span class="string">index_name;</span></span><br><span class="line"><span class="comment">#删除主键</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">T</span> <span class="string">drop</span> <span class="string">primary</span> <span class="string">key;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看索引</span></span><br><span class="line"><span class="string">show</span> <span class="string">index</span> <span class="string">from</span> <span class="string">T;</span></span><br><span class="line"><span class="string">show</span> <span class="string">keys</span> <span class="string">from</span> <span class="string">T;</span></span><br></pre></td></tr></table></figure>
+<p><strong>变量</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看满足条件的部分系统变量</span></span><br><span class="line"><span class="string">show</span> <span class="string">global</span> <span class="string">|</span> <span class="string">session</span> <span class="string">variables</span> <span class="string">like</span> <span class="string">&#x27;%char%&#x27;</span><span class="string">;</span></span><br><span class="line"><span class="string">查看指定的某个系统变量的值</span></span><br><span class="line"><span class="string">select</span> <span class="string">@@global|session.系统变量名;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#为某个系统变量赋值</span></span><br><span class="line"><span class="string">set</span> <span class="string">global|session</span> <span class="string">系统变量名</span> <span class="string">=</span> <span class="string">值;</span></span><br><span class="line"><span class="string">或</span></span><br><span class="line"><span class="string">set</span> <span class="string">@@global|session.系统变量名</span> <span class="string">=</span> <span class="string">值;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用户变量声明并初始化</span></span><br><span class="line"><span class="string">set</span> <span class="string">@用户变量名=值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用</span></span><br><span class="line"><span class="string">select</span> <span class="string">@用户变量名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#声明局部变量</span></span><br><span class="line"><span class="string">declare</span> <span class="string">变量名</span> <span class="string">类型;</span></span><br><span class="line"><span class="string">declare</span> <span class="string">变量名</span> <span class="string">类型</span> <span class="string">default</span> <span class="string">值;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#赋值和使用同用户变量一样</span></span><br></pre></td></tr></table></figure>
+<p><strong>存储过程</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建存储过程</span></span><br><span class="line"><span class="string">create</span> <span class="string">procedure</span> <span class="string">存储过程名(参数列表)</span></span><br><span class="line"><span class="string">begin</span></span><br><span class="line">	<span class="string">方法体(一组合法的sql语句)</span></span><br><span class="line"><span class="string">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#存储过程的结尾可以使用delimiter重新设置</span></span><br><span class="line"><span class="string">delimiter</span> <span class="string">结束标志</span></span><br><span class="line"><span class="string">例：</span></span><br><span class="line"><span class="string">delimiter</span> <span class="string">$</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建过程</span></span><br><span class="line"><span class="string">delimiter</span> <span class="string">;;</span></span><br><span class="line"><span class="string">create</span> <span class="string">procedure</span> <span class="string">idata()</span></span><br><span class="line"><span class="string">begin</span></span><br><span class="line">  <span class="string">declare</span> <span class="string">i</span> <span class="string">int;</span></span><br><span class="line">  <span class="string">set</span> <span class="string">i=1;</span></span><br><span class="line">  <span class="string">while(i&lt;=100000)do</span></span><br><span class="line">    <span class="string">insert</span> <span class="string">into</span> <span class="string">t</span> <span class="string">values(i,</span> <span class="string">i,</span> <span class="string">i);</span></span><br><span class="line">    <span class="string">set</span> <span class="string">i=i+1;</span></span><br><span class="line">  <span class="string">end</span> <span class="string">while;</span></span><br><span class="line"><span class="string">end;;</span></span><br><span class="line"><span class="string">delimiter</span> <span class="string">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#调用</span></span><br><span class="line"><span class="string">call</span> <span class="string">idata();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看存储过程</span></span><br><span class="line"><span class="string">show</span> <span class="string">create</span> <span class="string">procedure</span> <span class="string">存储过程名;</span></span><br><span class="line"><span class="comment">#删除存储过程</span></span><br><span class="line"><span class="string">drop</span> <span class="string">procedure</span> <span class="string">存储过程名;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>函数</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建函数</span></span><br><span class="line"><span class="string">create</span> <span class="string">function</span> <span class="string">函数名（参数列表）returns</span> <span class="string">返回类型</span></span><br><span class="line"><span class="string">begin</span></span><br><span class="line"><span class="string">函数体</span></span><br><span class="line"><span class="string">end</span></span><br><span class="line"></span><br><span class="line"><span class="string">注意事项：</span></span><br><span class="line"><span class="number">1</span><span class="string">.参数列表包含两部分：参数名</span> <span class="string">参数类型</span></span><br><span class="line"><span class="number">2</span><span class="string">.函数体：必须要有return语句，没有回报错。如果return语句没有放在函数体的最后也不报错，但不建议</span></span><br><span class="line"><span class="number">3.</span><span class="string">begin</span> <span class="string">end用法与存储过程相同，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#调用语法</span></span><br><span class="line"><span class="string">select</span> <span class="string">函数名（参数列表）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#例</span></span><br><span class="line"><span class="string">create</span> <span class="string">function</span> <span class="string">myfunc()</span> <span class="string">returns</span> <span class="string">int</span></span><br><span class="line"><span class="string">begin</span></span><br><span class="line">	<span class="string">declare</span> <span class="string">c</span> <span class="string">int</span> <span class="string">default</span> <span class="number">0</span><span class="string">;</span></span><br><span class="line">	<span class="string">select</span> <span class="string">count(*)</span> <span class="string">into</span> <span class="string">c</span></span><br><span class="line">	<span class="string">from</span> <span class="string">T;</span></span><br><span class="line">	<span class="string">return</span> <span class="string">c;</span></span><br><span class="line"><span class="string">end;</span></span><br><span class="line"></span><br><span class="line"><span class="string">select</span> <span class="string">myfunc();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看函数</span></span><br><span class="line"><span class="string">show</span> <span class="string">create</span> <span class="string">function</span> <span class="string">函数名;</span></span><br><span class="line"><span class="comment">#删除函数</span></span><br><span class="line"><span class="string">drop</span> <span class="string">function</span> <span class="string">函数名;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>参考</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zSoaring/article/details/115370995">Mysql-视图、变量、存储过程以及函数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ucloud.cn/yun/49368.html">Mysql语句大全</a></li>
+</ol>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/04/07/Mysql/Mysql相关知识(一)/" data-toggle="tooltip" data-placement="top" title="Mysql相关知识（一）">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ShuYou&#39;s Blog 2021 
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a> |                        
+                    Power by <a href="http://shuyou.site">ShuYou</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://shuyou.site/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
