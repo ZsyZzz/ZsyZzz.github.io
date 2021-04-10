@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Mysql相关知识（零）"
+title:      "Mysql相关知识（二）"
 date:       2021-4-9
 author:     "Zsy"
 tags:
