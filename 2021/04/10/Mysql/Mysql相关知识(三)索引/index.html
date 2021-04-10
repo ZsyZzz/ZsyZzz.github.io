@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A blog belongs to ShuYou">
+    <meta name="keyword"  content="blog life idea">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Mysql相关知识（三）索引 - ShuYou&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://shuyou.site/2021/04/10/Mysql/Mysql相关知识(三)索引/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                        
+                    </div>
+                    <h1>Mysql相关知识（三）索引</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Zsy on
+                        2021-04-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文介绍Mysql索引相关知识</p>
+</blockquote>
+<p><strong>索引是什么</strong></p>
+<p><font color=red>索引是一种帮助数据库高效查询数据的数据结构</font></p>
+<p>索引本身也很大，不可能全部存储在内存中，因此索引往往是存储在磁盘上的文件中。（可能是单独的索引文件，也可能是和数据一起存储在数据文件中）</p>
+<p>通常所说的索引，包括聚集索引、覆盖索引、组合索引、前缀索引、唯一索引等，没有特别说明，默认都是使用B+树结构组织（多路搜索树，并不一定是二叉的）的索引。</p>
+<p><strong>索引的类型</strong></p>
+<ul>
+<li>主键索引：索引列中的值必须是唯一的，且不允许有空值。</li>
+<li>唯一索引：索引列中的值必须是唯一的，但允许为空值。</li>
+<li>全文索引：只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。 </li>
+<li>组合索引： 可以是单列上创建的索引，也可以是在多列上创建的索引。</li>
+<li>普通索引： 最基本的索引类型，没有唯一性之类的限制。</li>
+</ul>
+<p><strong>索引相关操作</strong>：</p>
+<p><strong>主键索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建表的时候创建主键索引</span></span><br><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">(字段1</span> <span class="string">数据类型，字段2</span> <span class="string">数据类型,primary</span> <span class="string">key</span> <span class="string">(列名));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改表增加主键索引</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">add</span> <span class="string">primary</span> <span class="string">key</span> <span class="string">(列名);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除主键索引</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">drop</span> <span class="string">primary</span> <span class="string">key;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>唯一索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建</span></span><br><span class="line"><span class="string">create</span> <span class="string">unique</span> <span class="string">index</span> <span class="string">索引名</span> <span class="string">on</span> <span class="string">表名</span> <span class="string">(列名);</span></span><br><span class="line"><span class="string">或</span></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">add</span> <span class="string">unique</span> <span class="string">索引名</span> <span class="string">(列名);</span></span><br><span class="line"><span class="string">或</span></span><br><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">(字段1</span> <span class="string">数据类型，字段2</span> <span class="string">数据类型,unique</span> <span class="string">索引名</span> <span class="string">(列名));</span></span><br></pre></td></tr></table></figure>
+<p><strong>全文索引</strong>:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">create</span> <span class="string">fulltext</span> <span class="string">index</span> <span class="string">索引名</span> <span class="string">on</span> <span class="string">表名</span> <span class="string">(列名);</span></span><br><span class="line"></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">add</span> <span class="string">fulltext</span> <span class="string">索引名</span> <span class="string">(列名);</span></span><br><span class="line"></span><br><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">(字段1</span> <span class="string">数据类型，字段2</span> <span class="string">数据类型,fulltext</span> <span class="string">索引名</span> <span class="string">(列名));</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>组合索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">create</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">(字段1</span> <span class="string">数据类型，字段2</span> <span class="string">数据类型,index</span> <span class="string">索引名</span> <span class="string">(列名1，列名2));</span></span><br><span class="line"><span class="comment">#需要满足最左原则，因为select语句的 where 条件是依次从左往右执行的，所以在使用 select 语句查询时 where 条件使用的字段顺序必须和组合索引中的排序一致，否则索引将不会生效。</span></span><br><span class="line"><span class="comment">#  select * from 表名 where 列名1=&#x27;...&#x27; and(or) 列名2=&#x27;...&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>普通索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">create</span> <span class="string">index</span> <span class="string">索引名</span> <span class="string">on</span> <span class="string">表名</span> <span class="string">(列名[(length)]);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#(列名[(length)]：length 为可选项，如果忽略 length 的值，则使用整个列的值作为索引。如果指定使用列的前 length 个字符来创建索引，这样有利于减小索引文件的大小。</span></span><br><span class="line"></span><br><span class="line"><span class="string">alter</span> <span class="string">table</span> <span class="string">表名</span> <span class="string">add</span> <span class="string">index</span> <span class="string">索引名</span> <span class="string">(列名);</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查看索引</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">show</span> <span class="string">index</span> <span class="string">from</span> <span class="string">T;</span></span><br><span class="line"><span class="string">show</span> <span class="string">keys</span> <span class="string">form</span> <span class="string">T;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Mysql索引的数据结构</strong>：<font color=red>B+Tree</font><br>不使用下列数据结构的原因：</p>
+<ul>
+<li><p>二叉树：极端情况下会成为类似链表的结构，而且树高会增大磁盘IO，影响查询效率</p>
+</li>
+<li><p>平衡二叉树：树高会增大磁盘IO，影响查询效率</p>
+</li>
+<li><p>hash表：适合等值查询，不适合范围查询会查询整个表</p>
+<p>BTree：</p>
+</li>
+<li><p>叶子节点和非叶子节点都存放数据，不支持范围查询的快速查询（会多词遍历根节点）。</p>
+</li>
+<li><p>如果data存储的是行记录，行的大小随着列数的增多，所占空间会变大。这时，一个页中可存储的数据量就会变少，树相应就会变高，磁盘IO次数就会变大。</p>
+</li>
+</ul>
+<p> B+Tree：</p>
+<ul>
+<li>只有叶子节点存储数据，非叶子节点存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。</li>
+</ul>
+<p><strong>InnoDB索引</strong>：</p>
+<p>主键索引也叫聚簇索引，使用B+Tree构建，叶子节点存放的是数据表的整行记录。一般情况下，聚簇索引等同于主键索引，当一个表没有创建主键索引时，InnoDB会自动创建一个ROWID字段来构建聚簇索引。</p>
+<p>除聚簇索引之外的所有索引都称为辅助索引。辅助索引叶子节点存储的是该行的主键值，在检索时，InnoDB使用此主键值在聚簇索引中搜索行记录，这个过程也称回表。</p>
+<p><strong>哪些情况需要创建索引</strong>：</p>
+<ol>
+<li>主键自动建立唯一索引</li>
+<li>频繁作为查询条件的字段应该创建索引</li>
+<li>查询中与其他表关联的字段，外键关系应该建立索引</li>
+<li>频繁更新的字段不适合创建索引</li>
+<li>where条件里用不到的字段不创建索引</li>
+<li>查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度</li>
+<li>查询中统计或者分组的字段</li>
+</ol>
+<p><strong>哪些情况不需要创建索引</strong>：</p>
+<ol>
+<li>表记录太少</li>
+<li>经常增删改的表</li>
+<li>数据列有许多重复的内容</li>
+</ol>
+<p><strong>索引优化</strong>：</p>
+<ul>
+<li>覆盖索引</li>
+<li>最左前缀原则</li>
+<li>索引下推</li>
+</ul>
+<p><strong>参考</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Alen_xiaoxin/article/details/109258848">Mysql索引相关知识</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Lucien010230/article/details/115547721">Mysql索引概念相关知识</a></li>
+<li>Mysql45讲</li>
+</ol>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/04/09/Mysql/Mysql相关知识(二)/" data-toggle="tooltip" data-placement="top" title="Mysql相关知识（二）">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ShuYou&#39;s Blog 2021 
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a> |                        
+                    Power by <a href="http://shuyou.site">ShuYou</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://shuyou.site/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
