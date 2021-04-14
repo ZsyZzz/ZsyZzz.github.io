@@ -73,7 +73,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+            <a class="navbar-brand" href="/">
+                ShuYou&#39;s Blog
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,31 +92,30 @@
                     </li>
 
                     
+                        
+                                
+                        
+                            <li>
+                                <a href="/archives/">
+                                    Archives
+                                </a>
+                            </li>
+                            
+                                
+                        
+                                
+                        
+                            <li>
+                                <a href="/tags/">
+                                    Tags
+                                </a>
+                            </li>
+                            
+                                
 
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-                    
+                                    <li>
+                                        <a href="/about/">About</a>
+                                    </li>
                 </ul>
             </div>
         </div>
@@ -126,42 +127,46 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Main Content -->
-    <!-- Page Header -->
+    
+<!-- Page Header -->
 <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>ShuYou&#39;s Blog</h1>
+                    <h1>
+                        ShuYou&#39;s Blog
+                    </h1>
                     <!--<hr class="small">-->
-                    <span class="subheading">我不知道去何方，但我已经在路上。</span>
+                    <span class="subheading">
+                        我不知道去何方，但我已经在路上。
+                    </span>
                 </div>
             </div>
         </div>
@@ -175,30 +180,68 @@
     <div class="row">
         
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-            <div class="
+                <!-- USE SIDEBAR -->
+                <!-- Post Container -->
+                <div class="
                 col-lg-8 col-lg-offset-1
                 col-md-8 col-md-offset-1
                 col-sm-12
                 col-xs-12
                 post-container
             ">
-            
-                <!-- Main Content -->
+
+                    <!-- Main Content -->
 
 
-<div class="post-preview">
+    <div class="post-preview">
 
-    <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
-        <h2 class="post-title">
-            Mysql相关知识（三）索引
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/04/13/Mysql/Mysql相关知识(四)/">
+            <h2 class="post-title">
+                Mysql相关知识（四）
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Mysql中explain相关知识
+
+explain:当mysql的查询语句执行较慢时，可以通过使用explain命令解释mysql语句，通过结果分析mysql语句执行慢的原因，来优化mysql语句。
+expain出来的信息有10列：
+
+id
+select_type
+table
+type
+possible_keys
+key
+key_len
+ref
+rows
+Extra
+
+id：SQ......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-13
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
+            <h2 class="post-title">
+                Mysql相关知识（三）索引
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Mysql索引相关知识
 
 索引是什么
@@ -206,54 +249,54 @@
 索引本身也很大，不可能全部存储在内存中，因此索引往往是存储在磁盘上的文件中。（可能是单独的索引文件，也可能是和数据一起存储在数据文件中）
 通常所说的索引，包括聚集索引、覆盖索引、组合索引、前缀索引、唯一索引等，没有特别说明，默认都是使用B+树结构组织（多路搜索树，并不一定是二叉的）的索引。
 索引的类型......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-04-10
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-10
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/04/09/Mysql/Mysql相关知识(二)/">
-        <h2 class="post-title">
-            Mysql相关知识（二）
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/04/09/Mysql/Mysql相关知识(二)/">
+            <h2 class="post-title">
+                Mysql相关知识（二）
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Mysql操作和语句相关知识，包括增删改查、建表、函数、过程等相关知识。
 
 1.操作连接Mysql：
 1234mysql -h 主机地址 -u 用户名 -p 密码本地连接：mysql -u root -p
 修改密码：
 12345mysqladmin -u 用户名 -p 旧密码 password 新密码或者alter user `username`@`host` identified......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-04-09
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-09
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/04/07/Mysql/Mysql相关知识(一)/">
-        <h2 class="post-title">
-            Mysql相关知识（一）
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/04/07/Mysql/Mysql相关知识(一)/">
+            <h2 class="post-title">
+                Mysql相关知识（一）
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Mysql相关知识，主要包括Mysql的基础架构、事务、索引和日志等知识。
 
 基础架构基础架构示意图：
@@ -266,27 +309,27 @@
 存储引擎：存储数据，提供读写接口
 
 Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个Server层，常见的存储引......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-04-07
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-07
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/04/01/Java 并发/Java线程池/">
-        <h2 class="post-title">
-            Java线程池相关知识
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/04/01/Java 并发/Java线程池/">
+            <h2 class="post-title">
+                Java线程池相关知识
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Java线程池相关知识
 
 前言线程池：线程池是一种基于池化思想管理线程的工具，经常出现再多线程服务器中。
@@ -294,27 +337,27 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
 
 频繁申请/销毁资源和调度资源，将带来额外的消耗，可能会非常巨大。
 对资源无限申请缺乏抑制手段，可能会引发系统资源耗尽的风......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-04-01
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-01
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/31/算法/树/二叉树/">
-        <h2 class="post-title">
-            二叉树相关知识
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/31/算法/树/二叉树/">
+            <h2 class="post-title">
+                二叉树相关知识
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍二叉树相关知识
 
 定义：树的任意节点至多包含两棵子树。
@@ -325,52 +368,52 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
 
 链表方式定义
 123456789101112131415public class TreeNode &#123;    public int val;    public TreeNode left;    public TreeNode right;        public TreeNode(......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-31
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-31
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/30/Spring/Spring bean生命周期/">
-        <h2 class="post-title">
-            Spring bean的生命周期相关知识
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/30/Spring/Spring bean生命周期/">
+            <h2 class="post-title">
+                Spring bean的生命周期相关知识
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文简单介绍Spring bean的生命周期相关知识
 
 Spring IOC 简介IOC：Inversion of Control,即控制反转。传统Java程序中，我们是自己创建对象，而Spring IoC 是有一个容器来保管我们创建的对象，即将对象交给Spring 容器进行管理。
 bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理的对象称为 bean。 ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-30
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-30
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/25/JVM/Java垃圾回收/">
-        <h2 class="post-title">
-            Java垃圾回收
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/25/JVM/Java垃圾回收/">
+            <h2 class="post-title">
+                Java垃圾回收
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Java垃圾回收相关知识
 
 判断一个对象是否可以被回收回收对象首先需要判断这个对象是否可以被回收，Java虚拟机采用可达性分析算法判断。
@@ -378,52 +421,52 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
 给对象添加一个引用计数器，当对象增加一个引用时计数器加一，减少一个引用时计数器减一。引用计数为 0 的对象可被回收。
 两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收。
 正因为循环引用的存在，因此 J......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-25
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-25
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/24/JVM/Java虚拟机内存结构/">
-        <h2 class="post-title">
-            深入了解JVM内存结构
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/24/JVM/Java虚拟机内存结构/">
+            <h2 class="post-title">
+                深入了解JVM内存结构
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文主要介绍JVM内存结构相关知识，需要注意JVM内存结构和Java内存模型是两个概念。
 
 运行时数据区Java虚拟机在执行程序时会把它所管理的内存划分为若干个不同的数据区域。这些区域有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而一直存在，有些区域则依赖用户线程的启动和结束而建立和销毁。
 下图是 JVM 整体架构，中间部分就是 Java 虚拟机定义的各种运行时数据区域。......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-24
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-24
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/23/Spring/Spring事务/">
-        <h2 class="post-title">
-            Spring 事务相关知识
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/23/Spring/Spring事务/">
+            <h2 class="post-title">
+                Spring 事务相关知识
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍Spring事务相关的知识，包括事务隔离级别和事务传播特性。
 
 事务事务是逻辑上的一组操作，要么都执行，要么都不执行。我自己的理解是，数据库操作的最小单位，要么成功，要么失败。
@@ -431,165 +474,170 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
 
 原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么全部失败回滚。
 一致性（Consistency）：数据库在事务执行前后都保持一致性状态......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-23
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
-        <h2 class="post-title">
-            Java类加载机制
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-本文简单介绍Java类加载相关知识
-
-Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟机内存，它的生命周期会经历：加载、验证、准备、解析、初始化、使用、卸载这七个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、准备、初始化、卸载这五个阶段的顺序是确定的，类型的加载过程必须按这种顺序，而解析阶段却不一定，它在某些情况下可以在初始化之后再开始，这是为了支持Java语言运......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-22
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-        <li class="next">
-            <a href="/page/2/">Older Posts &rarr;</a>
-        </li>
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
-                
-
             </div>
-    <!-- Sidebar Container -->
-            <div class="
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-23
+        </p>
+
+    </div>
+    <hr>
+    
+
+
+        <!-- Pager -->
+
+        <ul class="pager">
+            
+                    
+                        <li class="next">
+                            <a href="/page/2/">Older Posts &rarr;</a>
+                        </li>
+                        
+        </ul>
+
+                        <!-- 如果开启评论功能 -->
+                        
+
+                </div>
+                <!-- Sidebar Container -->
+                <div class="
                 col-lg-3 col-lg-offset-0
                 col-md-3 col-md-offset-0
                 col-sm-12
                 col-xs-12
                 sidebar-container
             ">
-                <!-- Featured Tags -->
+                    <!-- Featured Tags -->
+                    
+                        <section>
+                            <!-- no hr -->
+                            <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                            <div class="tags">
+                                
+                                    
+                                            
+                                    
+                                            
+                                    
+                                        <a href="/tags/#JVM" title="JVM"
+                                            rel="3">
+                                            JVM
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java集合" title="Java集合"
+                                            rel="4">
+                                            Java集合
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java并发" title="Java并发"
+                                            rel="5">
+                                            Java并发
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Mysql" title="Mysql"
+                                            rel="4">
+                                            Mysql
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
+                                            
+                            </div>
+                        </section>
+                        
+
+                            <!-- Short About -->
+                            <section class="visible-md visible-lg">
+                                <hr>
+                                <h5><a href="/about/">ABOUT ME</a></h5>
+                                <div class="short-about">
+
+                                    
+                                        <img src="/img/me.jpg" />
+                                        
+
+                                            
+                                                <p>
+                                                    花有重开日，人无再少年。
+                                                </p>
+                                                
+
+                                                    <!-- SNS Link -->
+                                                    <ul class="list-inline">
+                                                        
+                                                                
+                                                                        
+                                                                            <li>
+                                                                                <a target="_blank"
+                                                                                    href="https://www.zhihu.com/people/ZouShuYou">
+                                                                                    <span class="fa-stack fa-lg">
+                                                                                        <i
+                                                                                            class="fa fa-circle fa-stack-2x"></i>
+                                                                                        <i
+                                                                                            class="fa  fa-stack-1x fa-inverse">知</i>
+                                                                                    </span>
+                                                                                </a>
+                                                                            </li>
+                                                                            
+
+                                                                                
+
+                                                                                        
+
+                                                                                                
+                                                                                                    <li>
+                                                                                                        <a target="_blank"
+                                                                                                            href="https://github.com/ZouShuYou">
+                                                                                                            <span
+                                                                                                                class="fa-stack fa-lg">
+                                                                                                                <i
+                                                                                                                    class="fa fa-circle fa-stack-2x"></i>
+                                                                                                                <i
+                                                                                                                    class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    
+
+
+                                                                                                        
+                                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- Friends Blog -->
+                            
+                </div>
                 
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java集合" title="Java集合" rel="4">Java集合</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java并发" title="Java并发" rel="5">Java并发</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring" title="Spring" rel="4">Spring</a>
-                            
-                        
-                            
-                            <a href="/tags/#算法" title="算法" rel="2">算法</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring AOP" title="Spring AOP" rel="2">Spring AOP</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Mysql" title="Mysql" rel="3">Mysql</a>
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/me.jpg" />
-                        
-
-                        
-                            <p>花有重开日，人无再少年。</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
-                <!-- Friends Blog -->
-                
-            </div>
-        
     </div>
 </div>
 

@@ -73,7 +73,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+            <a class="navbar-brand" href="/">
+                ShuYou&#39;s Blog
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,31 +92,30 @@
                     </li>
 
                     
+                        
+                                
+                        
+                            <li>
+                                <a href="/archives/">
+                                    Archives
+                                </a>
+                            </li>
+                            
+                                
+                        
+                                
+                        
+                            <li>
+                                <a href="/tags/">
+                                    Tags
+                                </a>
+                            </li>
+                            
+                                
 
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-                    
+                                    <li>
+                                        <a href="/about/">About</a>
+                                    </li>
                 </ul>
             </div>
         </div>
@@ -126,42 +127,46 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Main Content -->
-    <!-- Page Header -->
+    
+<!-- Page Header -->
 <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>ShuYou&#39;s Blog</h1>
+                    <h1>
+                        ShuYou&#39;s Blog
+                    </h1>
                     <!--<hr class="small">-->
-                    <span class="subheading">我不知道去何方，但我已经在路上。</span>
+                    <span class="subheading">
+                        我不知道去何方，但我已经在路上。
+                    </span>
                 </div>
             </div>
         </div>
@@ -175,81 +180,105 @@
     <div class="row">
         
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-            <div class="
+                <!-- USE SIDEBAR -->
+                <!-- Post Container -->
+                <div class="
                 col-lg-8 col-lg-offset-1
                 col-md-8 col-md-offset-1
                 col-sm-12
                 col-xs-12
                 post-container
             ">
-            
-                <!-- Main Content -->
+
+                    <!-- Main Content -->
 
 
-<div class="post-preview">
+    <div class="post-preview">
 
-    <a href="/2021/03/16/Java Base/LinkedHashMap/">
-        <h2 class="post-title">
-            深入了解LinkedHashMap
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
+            <h2 class="post-title">
+                Java类加载机制
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文简单介绍Java类加载相关知识
+
+Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟机内存，它的生命周期会经历：加载、验证、准备、解析、初始化、使用、卸载这七个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、准备、初始化、卸载这五个阶段的顺序是确定的，类型的加载过程必须按这种顺序，而解析阶段却不一定，它在某些情况下可以在初始化之后再开始，这是为了支持Java语言运......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-22
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/03/16/Java Base/LinkedHashMap/">
+            <h2 class="post-title">
+                深入了解LinkedHashMap
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍LinkedHashMap的相关知识
 
 简介之前了解过HashMap，HashMap是无序的，当我们希望有顺序地去存储key-value时，就需要使用LinkedHashMap了。
 LinkedHashMap由哈希表+双向链表组成，它继承自HashMap，重写了HashMap的一些方法，可以用于LRU算法，它和HashMap一样不是线程安全的。
 123456789101112131......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-16
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-16
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/16/算法/缓存淘汰算法/">
-        <h2 class="post-title">
-            FIFO、LRU、LFU三种缓存淘汰算法
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/16/算法/缓存淘汰算法/">
+            <h2 class="post-title">
+                FIFO、LRU、LFU三种缓存淘汰算法
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍三种常用缓存淘汰算法，即它们的简单实现。
 
 简介缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。当缓存中的数据太多超过一定值时，通常会采取一些缓存淘汰算法进行处理。
 FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的性质，所以可以考虑采用LinkedList实现FIFO算法。但是只用LinkedList......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-16
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-16
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/12/Java 并发/Java线程通信工具类的使用/">
-        <h2 class="post-title">
-            Java线程通信工具类的使用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/12/Java 并发/Java线程通信工具类的使用/">
+            <h2 class="post-title">
+                Java线程通信工具类的使用
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文介绍一些Java线程常用通信工具类，主要介绍怎么使用。
 
 简介常见的线程间通信方法有：
@@ -260,52 +289,52 @@ Condition接口的awiat() 和 signAll()方法 + 加锁机制synchronized和lock
 生产者消费者模式
 
 这里介绍一些JDK中java.util.concurre......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-12
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-12
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/10/Java 并发/ReentrantReadWriteLock/">
-        <h2 class="post-title">
-            深入了解ReentrantReadWriteLock
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/10/Java 并发/ReentrantReadWriteLock/">
+            <h2 class="post-title">
+                深入了解ReentrantReadWriteLock
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文分析JDK1.8中的ReentrantReadWriteLock类
 
 简介由于ReentrantLock是独占锁，某时只有一个线程可以获取该锁，而实际中会有写少读多的场景，所以ReentrantReadWriteLock应运而生，采用读写分离的策略，允许多个线程同时获取该锁。
 ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一个WriteLoc......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-10
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-10
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/08/Java 并发/Java并发基础/">
-        <h2 class="post-title">
-            Java并发基础
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/08/Java 并发/Java并发基础/">
+            <h2 class="post-title">
+                Java并发基础
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本篇介绍Java并发的基础知识，主要包括线程安全，共享变量的内存可见性，synchronized和volatile关键字，指令重排序，伪共享等相关知识。
 
 并发与并行
@@ -315,51 +344,51 @@ ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一�
 并发是单位时间内，一个CPU切换时间片对多个任务进行处理
 并行是同一时刻，多个CPU对多个任务同时进行处理
 线程安全共享资源：该资源被多个线程所持有......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-08
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-08
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/05/Java 并发/ThreadLocal/">
-        <h2 class="post-title">
-            深入了解ThreadLocal
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/05/Java 并发/ThreadLocal/">
+            <h2 class="post-title">
+                深入了解ThreadLocal
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文分析ThreadLocal的原理和使用
 
 1.ThreadLocal简介多线程访问共享变量时容易出现并发问题，为了保证线程安全，一般会给共享变量进行适当的加锁同步。如果不想加锁呢？ThreadLocal可以做到线程隔离，多个线程访问共享变量时，访问的是自己线程的变量。ThreadLocal提供了线程本地变量，如果创建了一个ThreadLocal变量，那么访问这个变量的每个线程都会有这个......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-05
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-05
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/03/Java Base/ConcurrentHashMap/">
-        <h2 class="post-title">
-            深入了解ConcurrentHashMap
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/03/Java Base/ConcurrentHashMap/">
+            <h2 class="post-title">
+                深入了解ConcurrentHashMap
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本文将深入源码分析ConcurrentHashMap的相关内容
 
 1.ConcurrentHashMap简介由于HashMap是非线程安全的，所以如果想在多线程下安全的操作Map，有下面几个解决方案：
@@ -369,221 +398,222 @@ ReentrantReadWriteLock即可重入读写锁，内部维护一个ReadLock和一�
 使用ConcurrentHashMap
 
 HashTableHashTable类是一个线程安全的类，它的......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-03
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-03
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/03/02/Java Base/HashMap/">
-        <h2 class="post-title">
-            深入了解HashMap
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/03/02/Java Base/HashMap/">
+            <h2 class="post-title">
+                深入了解HashMap
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 本篇分析HashMap的 hash()函数 和 底层数据结构 以及 常用方法 和 常见面试相关题目
 
 1. HashMap简介HashMap 是一个K，V键值对的常用集合类，它实现了Map接口。jdk1.8 之前 HashMap 采用 数组 + 链表 的方式实现，链表存储key值冲突的数据。jdk1.8 采用  数组 + 链表 / 红黑树 的方式实现，在满足下面两个条件之后，会执行链表转红......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-03-02
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-02
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/02/23/Java Base/Java集合小结/">
-        <h2 class="post-title">
-            Java集合小结
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/02/23/Java Base/Java集合小结/">
+            <h2 class="post-title">
+                Java集合小结
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
 这篇文章对Java集合相关类进行介绍，包括Collection、List、Set、Map、Queue这些常见得集合相关接口和类。
 
 1.集合概述常用的集合有List、Set、Map、Queue等，他们之间的关系如下图。List、Queue、Set继承Collection接口。Iterable接口是迭代器，这里不进行过多介绍。Map接口是一个单独的接口，这里不进行介绍。List、Set、Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-02-23
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/01/18/Aviator/aviator使用/">
-        <h2 class="post-title">
-            Aviator的初步了解和使用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-“初步了解和使用Aviator”
-
-1.Aviator简介Aviator 是一个高性能，轻量级的java语言实现的表达式求值引擎，主要用于各种表达式的动态求值。
-官方文档
-github地址
-
-支持数字、字符串、正则表达式、布尔值、正则表达式等基本类型，完整支持所有 Java 运算符及优先级等。函数是一等公民，支持闭包和函数式编程。内置 bigint/decmal 类型用于大整数和高精度运算......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-01-18
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
-        <li class="next">
-            <a href="/page/3/">Older Posts &rarr;</a>
-        </li>
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
-                
-
             </div>
-    <!-- Sidebar Container -->
-            <div class="
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-02-23
+        </p>
+
+    </div>
+    <hr>
+    
+
+
+        <!-- Pager -->
+
+        <ul class="pager">
+            
+                <li class="previous">
+                    <a href="/">&larr; Newer Posts</a>
+                </li>
+                
+                    
+                        <li class="next">
+                            <a href="/page/3/">Older Posts &rarr;</a>
+                        </li>
+                        
+        </ul>
+
+                        <!-- 如果开启评论功能 -->
+                        
+
+                </div>
+                <!-- Sidebar Container -->
+                <div class="
                 col-lg-3 col-lg-offset-0
                 col-md-3 col-md-offset-0
                 col-sm-12
                 col-xs-12
                 sidebar-container
             ">
-                <!-- Featured Tags -->
+                    <!-- Featured Tags -->
+                    
+                        <section>
+                            <!-- no hr -->
+                            <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                            <div class="tags">
+                                
+                                    
+                                            
+                                    
+                                            
+                                    
+                                        <a href="/tags/#JVM" title="JVM"
+                                            rel="3">
+                                            JVM
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java集合" title="Java集合"
+                                            rel="4">
+                                            Java集合
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java并发" title="Java并发"
+                                            rel="5">
+                                            Java并发
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Mysql" title="Mysql"
+                                            rel="4">
+                                            Mysql
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
+                                            
+                            </div>
+                        </section>
+                        
+
+                            <!-- Short About -->
+                            <section class="visible-md visible-lg">
+                                <hr>
+                                <h5><a href="/about/">ABOUT ME</a></h5>
+                                <div class="short-about">
+
+                                    
+                                        <img src="/img/me.jpg" />
+                                        
+
+                                            
+                                                <p>
+                                                    花有重开日，人无再少年。
+                                                </p>
+                                                
+
+                                                    <!-- SNS Link -->
+                                                    <ul class="list-inline">
+                                                        
+                                                                
+                                                                        
+                                                                            <li>
+                                                                                <a target="_blank"
+                                                                                    href="https://www.zhihu.com/people/ZouShuYou">
+                                                                                    <span class="fa-stack fa-lg">
+                                                                                        <i
+                                                                                            class="fa fa-circle fa-stack-2x"></i>
+                                                                                        <i
+                                                                                            class="fa  fa-stack-1x fa-inverse">知</i>
+                                                                                    </span>
+                                                                                </a>
+                                                                            </li>
+                                                                            
+
+                                                                                
+
+                                                                                        
+
+                                                                                                
+                                                                                                    <li>
+                                                                                                        <a target="_blank"
+                                                                                                            href="https://github.com/ZouShuYou">
+                                                                                                            <span
+                                                                                                                class="fa-stack fa-lg">
+                                                                                                                <i
+                                                                                                                    class="fa fa-circle fa-stack-2x"></i>
+                                                                                                                <i
+                                                                                                                    class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    
+
+
+                                                                                                        
+                                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- Friends Blog -->
+                            
+                </div>
                 
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java集合" title="Java集合" rel="4">Java集合</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java并发" title="Java并发" rel="5">Java并发</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring" title="Spring" rel="4">Spring</a>
-                            
-                        
-                            
-                            <a href="/tags/#算法" title="算法" rel="2">算法</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring AOP" title="Spring AOP" rel="2">Spring AOP</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Mysql" title="Mysql" rel="3">Mysql</a>
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/me.jpg" />
-                        
-
-                        
-                            <p>花有重开日，人无再少年。</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
-                <!-- Friends Blog -->
-                
-            </div>
-        
     </div>
 </div>
 

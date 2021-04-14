@@ -73,7 +73,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+            <a class="navbar-brand" href="/">
+                ShuYou&#39;s Blog
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,31 +92,30 @@
                     </li>
 
                     
+                        
+                                
+                        
+                            <li>
+                                <a href="/archives/">
+                                    Archives
+                                </a>
+                            </li>
+                            
+                                
+                        
+                                
+                        
+                            <li>
+                                <a href="/tags/">
+                                    Tags
+                                </a>
+                            </li>
+                            
+                                
 
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-                    
+                                    <li>
+                                        <a href="/about/">About</a>
+                                    </li>
                 </ul>
             </div>
         </div>
@@ -126,42 +127,46 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Main Content -->
-    <!-- Page Header -->
+    
+<!-- Page Header -->
 <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>ShuYou&#39;s Blog</h1>
+                    <h1>
+                        ShuYou&#39;s Blog
+                    </h1>
                     <!--<hr class="small">-->
-                    <span class="subheading">我不知道去何方，但我已经在路上。</span>
+                    <span class="subheading">
+                        我不知道去何方，但我已经在路上。
+                    </span>
                 </div>
             </div>
         </div>
@@ -175,220 +180,277 @@
     <div class="row">
         
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-            <div class="
+                <!-- USE SIDEBAR -->
+                <!-- Post Container -->
+                <div class="
                 col-lg-8 col-lg-offset-1
                 col-md-8 col-md-offset-1
                 col-sm-12
                 col-xs-12
                 post-container
             ">
-            
-                <!-- Main Content -->
+
+                    <!-- Main Content -->
 
 
-<div class="post-preview">
+    <div class="post-preview">
 
-    <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
-        <h2 class="post-title">
-            Spring AOP的初步使用
-        </h2>
-        <h3 class="post-subtitle">
-                  （二）       
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/01/18/Aviator/aviator使用/">
+            <h2 class="post-title">
+                Aviator的初步了解和使用
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+“初步了解和使用Aviator”
+
+1.Aviator简介Aviator 是一个高性能，轻量级的java语言实现的表达式求值引擎，主要用于各种表达式的动态求值。
+官方文档
+github地址
+
+支持数字、字符串、正则表达式、布尔值、正则表达式等基本类型，完整支持所有 Java 运算符及优先级等。函数是一等公民，支持闭包和函数式编程。内置 bigint/decmal 类型用于大整数和高精度运算......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-01-18
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
+            <h2 class="post-title">
+                Spring AOP的初步使用
+            </h2>
+            <h3 class="post-subtitle">
+                      （二）       
+            </h3>
+            <div class="post-content-preview">
+                
 “初步了解和使用SPRING AOP”
 
 一、JDK 动态代理的使用1.Food  目标接口123456789101112131415161718package proxy;/** * @author zsy * @version v1.0 * @Description * @date 2020-09-23 15:50 */public interface Food &#123;    /......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-01-11
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-01-11
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2021/01/09/Spring/Spring AOP/Spring AOP介绍/">
-        <h2 class="post-title">
-            Spring AOP的初步了解
-        </h2>
-        <h3 class="post-subtitle">
-                  （一）       
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2021/01/09/Spring/Spring AOP/Spring AOP介绍/">
+            <h2 class="post-title">
+                Spring AOP的初步了解
+            </h2>
+            <h3 class="post-subtitle">
+                      （一）       
+            </h3>
+            <div class="post-content-preview">
+                
 “初步了解和使用SPRING AOP”
 
 一、AOP1.1 什么是AOPAOP(Aspect Orient Programming)，面向切面编程。AOP是一种编程思想，是对面向对象编程（OOP）的一种补充。
 1.2 AOP实现分类AOP的本质是由AOP框架修改业务组件的字节码，是代理模式的一种应用。按照修改的字节码的时机可以分为两类:
 
 静态AOP: AOP框架在编译阶段进行修改，生成了......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2021-01-09
-    </p>
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-01-09
+        </p>
 
-</div>
-<hr>
+    </div>
+    <hr>
+    
+    <div class="post-preview">
 
-<div class="post-preview">
-
-    <a href="/2020/11/29/hello-world/">
-        <h2 class="post-title">
-            Welcome to ShuYou Blog
-        </h2>
-        <h3 class="post-subtitle">
-             "Hello World, Hello Blog"
-        </h3>
-        <div class="post-content-preview">
-            
+        <a href="/2020/11/29/hello-world/">
+            <h2 class="post-title">
+                Welcome to ShuYou Blog
+            </h2>
+            <h3 class="post-subtitle">
+                 "Hello World, Hello Blog"
+            </h3>
+            <div class="post-content-preview">
+                
 “Yeah It’s on. ”
 
 前言这是使用Hexo搭建的博客，使用了Hux的主题。用腾讯云做的服务器，nginx静态资源访问，图片加载很慢，之后再优化下吧。刚开始是打算用来记录Java技术之类的学习，现在想了下这个博客还是用来记录自己平时的想法和生活吧。具体的技术什么的就发表在平台之类的网站上吧。
 计划2020年毕业的，今年也比较特殊，新冠嘛。年初谈了女朋友，当时已经签了三方，可是也......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zsy on
-        2020-11-29
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/page/2/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
-                
-
             </div>
-    <!-- Sidebar Container -->
-            <div class="
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2020-11-29
+        </p>
+
+    </div>
+    <hr>
+    
+
+
+        <!-- Pager -->
+
+        <ul class="pager">
+            
+                <li class="previous">
+                    <a href="/page/2/">&larr; Newer Posts</a>
+                </li>
+                
+                    
+        </ul>
+
+                        <!-- 如果开启评论功能 -->
+                        
+
+                </div>
+                <!-- Sidebar Container -->
+                <div class="
                 col-lg-3 col-lg-offset-0
                 col-md-3 col-md-offset-0
                 col-sm-12
                 col-xs-12
                 sidebar-container
             ">
-                <!-- Featured Tags -->
+                    <!-- Featured Tags -->
+                    
+                        <section>
+                            <!-- no hr -->
+                            <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                            <div class="tags">
+                                
+                                    
+                                            
+                                    
+                                            
+                                    
+                                        <a href="/tags/#JVM" title="JVM"
+                                            rel="3">
+                                            JVM
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java集合" title="Java集合"
+                                            rel="4">
+                                            Java集合
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java并发" title="Java并发"
+                                            rel="5">
+                                            Java并发
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Mysql" title="Mysql"
+                                            rel="4">
+                                            Mysql
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
+                                            
+                            </div>
+                        </section>
+                        
+
+                            <!-- Short About -->
+                            <section class="visible-md visible-lg">
+                                <hr>
+                                <h5><a href="/about/">ABOUT ME</a></h5>
+                                <div class="short-about">
+
+                                    
+                                        <img src="/img/me.jpg" />
+                                        
+
+                                            
+                                                <p>
+                                                    花有重开日，人无再少年。
+                                                </p>
+                                                
+
+                                                    <!-- SNS Link -->
+                                                    <ul class="list-inline">
+                                                        
+                                                                
+                                                                        
+                                                                            <li>
+                                                                                <a target="_blank"
+                                                                                    href="https://www.zhihu.com/people/ZouShuYou">
+                                                                                    <span class="fa-stack fa-lg">
+                                                                                        <i
+                                                                                            class="fa fa-circle fa-stack-2x"></i>
+                                                                                        <i
+                                                                                            class="fa  fa-stack-1x fa-inverse">知</i>
+                                                                                    </span>
+                                                                                </a>
+                                                                            </li>
+                                                                            
+
+                                                                                
+
+                                                                                        
+
+                                                                                                
+                                                                                                    <li>
+                                                                                                        <a target="_blank"
+                                                                                                            href="https://github.com/ZouShuYou">
+                                                                                                            <span
+                                                                                                                class="fa-stack fa-lg">
+                                                                                                                <i
+                                                                                                                    class="fa fa-circle fa-stack-2x"></i>
+                                                                                                                <i
+                                                                                                                    class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    
+
+
+                                                                                                        
+                                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- Friends Blog -->
+                            
+                </div>
                 
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#JVM" title="JVM" rel="3">JVM</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java集合" title="Java集合" rel="4">Java集合</a>
-                            
-                        
-                            
-                            <a href="/tags/#Java并发" title="Java并发" rel="5">Java并发</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring" title="Spring" rel="4">Spring</a>
-                            
-                        
-                            
-                            <a href="/tags/#算法" title="算法" rel="2">算法</a>
-                            
-                        
-                            
-                            <a href="/tags/#Spring AOP" title="Spring AOP" rel="2">Spring AOP</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Mysql" title="Mysql" rel="3">Mysql</a>
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/me.jpg" />
-                        
-
-                        
-                            <p>花有重开日，人无再少年。</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/ZouShuYou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
-                <!-- Friends Blog -->
-                
-            </div>
-        
     </div>
 </div>
 

@@ -73,7 +73,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">ShuYou&#39;s Blog</a>
+            <a class="navbar-brand" href="/">
+                ShuYou&#39;s Blog
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,31 +92,30 @@
                     </li>
 
                     
+                        
+                                
+                        
+                            <li>
+                                <a href="/archives/">
+                                    Archives
+                                </a>
+                            </li>
+                            
+                                
+                        
+                                
+                        
+                            <li>
+                                <a href="/tags/">
+                                    Tags
+                                </a>
+                            </li>
+                            
+                                
 
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-                    
+                                    <li>
+                                        <a href="/about/">About</a>
+                                    </li>
                 </ul>
             </div>
         </div>
@@ -126,31 +127,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!-- Main Content -->
     
@@ -186,6 +186,8 @@
                 
                     <a href="#Java并发" title="Java并发" rel="5">Java并发</a>
                 
+                    <a href="#Mysql" title="Mysql" rel="4">Mysql</a>
+                
                     <a href="#Spring" title="Spring" rel="4">Spring</a>
                 
                     <a href="#算法" title="算法" rel="2">算法</a>
@@ -193,8 +195,6 @@
                     <a href="#Spring AOP" title="Spring AOP" rel="2">Spring AOP</a>
                 
                     <a href="#树" title="树" rel="1">树</a>
-                
-                    <a href="#Mysql" title="Mysql" rel="3">Mysql</a>
                 
             </div>
 
@@ -259,9 +259,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
+                     <a href="/2021/03/25/JVM/Java垃圾回收/">
                         <h2 class="post-title">
-                            Java类加载机制
+                            Java垃圾回收
                         </h2>
                         
                     </a>
@@ -289,9 +289,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/03/25/JVM/Java垃圾回收/">
+                     <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
                         <h2 class="post-title">
-                            Java垃圾回收
+                            Java类加载机制
                         </h2>
                         
                     </a>
@@ -393,24 +393,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/03/05/Java 并发/ThreadLocal/">
+                     <a href="/2021/04/01/Java 并发/Java线程池/">
                         <h2 class="post-title">
-                            深入了解ThreadLocal
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/03/10/Java 并发/ReentrantReadWriteLock/">
-                        <h2 class="post-title">
-                            深入了解ReentrantReadWriteLock
+                            Java线程池相关知识
                         </h2>
                         
                     </a>
@@ -438,9 +423,91 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/04/01/Java 并发/Java线程池/">
+                     <a href="/2021/03/05/Java 并发/ThreadLocal/">
                         <h2 class="post-title">
-                            Java线程池相关知识
+                            深入了解ThreadLocal
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/03/10/Java 并发/ReentrantReadWriteLock/">
+                        <h2 class="post-title">
+                            深入了解ReentrantReadWriteLock
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Mysql">
+                    <span class="tag-text">Mysql</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/04/07/Mysql/Mysql相关知识(一)/">
+                        <h2 class="post-title">
+                            Mysql相关知识（一）
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/04/09/Mysql/Mysql相关知识(二)/">
+                        <h2 class="post-title">
+                            Mysql相关知识（二）
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
+                        <h2 class="post-title">
+                            Mysql相关知识（三）索引
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/04/13/Mysql/Mysql相关知识(四)/">
+                        <h2 class="post-title">
+                            Mysql相关知识（四）
                         </h2>
                         
                     </a>
@@ -460,9 +527,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/03/23/Spring/Spring事务/">
+                     <a href="/2021/03/30/Spring/Spring bean生命周期/">
                         <h2 class="post-title">
-                            Spring 事务相关知识
+                            Spring bean的生命周期相关知识
                         </h2>
                         
                     </a>
@@ -475,14 +542,10 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
+                     <a href="/2021/03/23/Spring/Spring事务/">
                         <h2 class="post-title">
-                            Spring AOP的初步使用
+                            Spring 事务相关知识
                         </h2>
-                        
-                            <h3 class="post-subtitle">
-                                      （二）       
-                            </h3>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
@@ -513,10 +576,14 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/03/30/Spring/Spring bean生命周期/">
+                     <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
                         <h2 class="post-title">
-                            Spring bean的生命周期相关知识
+                            Spring AOP的初步使用
                         </h2>
+                        
+                            <h3 class="post-subtitle">
+                                      （二）       
+                            </h3>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
@@ -572,13 +639,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
+                     <a href="/2021/01/09/Spring/Spring AOP/Spring AOP介绍/">
                         <h2 class="post-title">
-                            Spring AOP的初步使用
+                            Spring AOP的初步了解
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                      （二）       
+                                      （一）       
                             </h3>
                         
                     </a>
@@ -591,13 +658,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/01/09/Spring/Spring AOP/Spring AOP介绍/">
+                     <a href="/2021/01/11/Spring/Spring AOP/Spring AOP使用/">
                         <h2 class="post-title">
-                            Spring AOP的初步了解
+                            Spring AOP的初步使用
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                      （一）       
+                                      （二）       
                             </h3>
                         
                     </a>
@@ -620,58 +687,6 @@
                      <a href="/2021/03/31/算法/树/二叉树/">
                         <h2 class="post-title">
                             二叉树相关知识
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Mysql">
-                    <span class="tag-text">Mysql</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/04/07/Mysql/Mysql相关知识(一)/">
-                        <h2 class="post-title">
-                            Mysql相关知识（一）
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/04/09/Mysql/Mysql相关知识(二)/">
-                        <h2 class="post-title">
-                            Mysql相关知识（二）
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
-                        <h2 class="post-title">
-                            Mysql相关知识（三）索引
                         </h2>
                         
                     </a>
