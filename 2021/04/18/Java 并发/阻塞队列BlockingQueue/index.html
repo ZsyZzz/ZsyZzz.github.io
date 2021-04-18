@@ -13,11 +13,11 @@
 
     <title>
         
-          Mysql相关知识（五） - ShuYou&#39;s Blog
+          阻塞队列BlockingQueue - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/2021/04/16/Mysql/Mysql相关知识(五)/">
+    <link rel="canonical" href="https://shuyou.site/2021/04/18/Java 并发/阻塞队列BlockingQueue/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -171,14 +171,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                          <a class="tag" href="/tags/#Java并发" title="Java并发">Java并发</a>
                         
                     </div>
-                    <h1>Mysql相关知识（五）</h1>
+                    <h1>阻塞队列BlockingQueue</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Zsy on
-                        2021-04-16
+                        2021-04-18
                     </span>
                 </div>
             </div>
@@ -198,73 +198,80 @@
                 post-container">
 
                 <blockquote>
-<p>本文介绍Mysql ACID特性的实现原理</p>
+<p>本文介绍BlockingQueue阻塞队列相关知识</p>
 </blockquote>
-<p><strong>ACID</strong>:</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>BlockingQueue是JUC包下的一个接口，通常用于一个线程生产对象，而另外一个线程消费这些对象的场景。<br><img src="https://img-blog.csdnimg.cn/20210417171853751.png" alt="在这里插入图片描述"></p>
+<p><strong>方法</strong>：<br>BlockingQueue继承Queue接口，因此，对数据元素的基本操作有：</p>
+<blockquote>
+<p>插入元素</p>
+</blockquote>
+<ol>
+<li>add(E e) ：往队列插入数据，当队列满时，插入元素时会抛出IllegalStateException异常；</li>
+<li>offer(E e)：当往队列插入数据时，插入成功返回<code>true</code>，否则则返回<code>false</code>。</li>
+</ol>
+<blockquote>
+<p>删除元素</p>
+</blockquote>
+<ol>
+<li>remove(Object o)：从队列中删除数据，成功则返回<code>true</code>，否则为<code>false</code></li>
+<li>poll：删除数据，当队列为空时，返回null；</li>
+</ol>
+<blockquote>
+<p>查看元素</p>
+</blockquote>
+<ol>
+<li>element：获取队头元素，如果队列为空时则抛出NoSuchElementException异常；</li>
+<li>peek：获取队头元素，如果队列为空则抛出NoSuchElementException异常</li>
+</ol>
+<p>BlockingQueue具有的特殊操作：</p>
+<blockquote>
+<p>插入数据：</p>
+</blockquote>
+<ol>
+<li>put：当阻塞队列容量已经满时，往阻塞队列插入数据的线程会被阻塞，直至阻塞队列已经有空余的容量可供使用；</li>
+<li>offer(E e, long timeout, TimeUnit unit)：若阻塞队列已经满时，同样会阻塞插入数据的线程，直至阻塞队列已经有空余的地方，与put方法不同的是，该方法会有一个超时时间，若超过当前给定的超时时间，插入数据的线程会退出；</li>
+</ol>
+<blockquote>
+<p>删除数据</p>
+</blockquote>
+<ol>
+<li>take()：当阻塞队列为空时，获取队头数据的线程会被阻塞；</li>
+<li>poll(long timeout, TimeUnit unit)：当阻塞队列为空时，获取数据的线程会被阻塞，另外，如果被阻塞的线程超过了给定的时长，该线程会退出</li>
+</ol>
+<h3 id="常用实现类"><a href="#常用实现类" class="headerlink" title="常用实现类"></a>常用实现类</h3><p><strong>ArrayBlockingQueue</strong>：<br>ArrayBlockingQueue是由数组实现的有界队列，ArrayBlockingQueue可作为“有界数据缓冲区”，生产者插入数据到队列容器中，并由消费者提取。ArrayBlockingQueue一旦创建，容量不能改变。</p>
+<p>从ArrayBlockingQueue的构造函数中可以看出，线程访问队列默认是非公平的，但是可以调用另一个构造函数进行设置。</p>
+<p>当队列容量满时，尝试将元素放入队列将导致操作阻塞;尝试从一个空队列中取一个元素也会同样阻塞。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayBlockingQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(capacity, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayBlockingQueue</span><span class="params">(<span class="keyword">int</span> capacity, <span class="keyword">boolean</span> fair)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (capacity &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">this</span>.items = <span class="keyword">new</span> Object[capacity];</span><br><span class="line">    lock = <span class="keyword">new</span> ReentrantLock(fair);</span><br><span class="line">    notEmpty = lock.newCondition();</span><br><span class="line">    notFull =  lock.newCondition();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>LinkedBlockingQueue</strong>:<br>LinkedBlockingQueue是用链表实现的有界阻塞队列，同样满足FIFO的特性，与ArrayBlockingQueue相比起来具有更高的吞吐量，为了防止LinkedBlockingQueue容量迅速增，损耗大量内存。通常在创建LinkedBlockingQueue对象时，会指定其大小，如果未指定，容量等于Integer.MAX_VALUE。</p>
+<p><strong>LinkedBlockingDeque</strong>:<br>LinkedBlockingDeque是基于链表数据结构的有界阻塞双端队列，如果在创建对象时为指定大小时，其默认大小为Integer.MAX_VALUE。与LinkedBlockingQueue相比，主要的不同点在于LinkedBlockingDeque具有双端队列的特性。</p>
+<p><strong>LinkedTransferQueue</strong>:<br>LinkedTransferQueue是一个由链表数据结构构成的无界阻塞队列，由于该队列实现了TransferQueue接口，与其他阻塞队列相比主要有以下不同的方法：</p>
+<p>transfer(E e): 如果当前有线程（消费者）正在调用take()方法或者可延时的poll()方法进行消费数据时，生产者线程可以调用transfer方法将数据传递给消费者线程。如果当前没有消费者线程的话，生产者线程就会将数据插入到队尾，直到有消费者能够进行消费才能退出；</p>
+<p>tryTransfer(E e): tryTransfer方法如果当前有消费者线程（调用take方法或者具有超时特性的poll方法）正在消费数据的话，该方法可以将数据立即传送给消费者线程，如果当前没有消费者线程消费数据的话，就立即返回false。因此，与transfer方法相比，transfer方法是必须等到有消费者线程消费数据时，生产者线程才能够返回。而tryTransfer方法能够立即返回结果退出。</p>
+<p>tryTransfer(E e,long timeout,imeUnit unit)<br>与transfer基本功能一样，只是增加了超时特性，如果数据才规定的超时时间内没有消费者进行消费的话，就返回false。</p>
+<p><strong>PriorityBlockingQueue</strong>:</p>
 <ul>
-<li>原子性</li>
-<li>一致性</li>
-<li>隔离性</li>
-<li>持久性</li>
+<li>PriorityBlockingQueue是一个支持优先级的无界阻塞队列（容量不够时会自动扩容,是二叉树最小堆的实现）。默认情况下元素采用自然顺序进行排序，也可以通过自定义类实现compareTo()方法来指定元素排序规则，或者初始化时通过构造器参数Comparator来指定排序规则。</li>
+<li>它的 take 方法在队列为空的时候会阻塞，但是正因为它是无界队列，而且会自动扩容，所以它的队列永远不会满，所以它的 put 方法永远不会阻塞，添加操作始终都会成功。</li>
 </ul>
-<p><strong>原子性</strong>：一个事务是一个不可切割的单位，要么全部执行成功，要么全部失败。</p>
-<p>是采用undo log日志实现的。undo log日志用来记录Mysql逻辑语句的执行。</p>
-<p>当事务对数据库进行修改时，InnoDB会生成对应的undo log；如果事务执行失败或调用了rollback，导致事务需要回滚，便可以利用undo log中的信息将数据回滚到修改之前的样子。</p>
-<p>当发生回滚时，InnoDB会根据undo log的内容做与之前相反的工作：对于每个insert，回滚时会执行delete；对于每个delete，回滚时会执行insert；对于每个update，回滚时会执行一个相反的update，把数据改回去。</p>
-<p><strong>一致性</strong>：数据库在事务执行前后都保持一致性状态。在一致性状态下，所有事务对一个数据的读取结果都是相同的。</p>
-<p>从数据库层面，数据库通过原子性、隔离性、持久性来保证一致性。也就是说ACID四大特性之中，C(一致性)是目的，A(原子性)、I(隔离性)、D(持久性)是手段，是为了保证一致性，数据库提供的手段。数据库必须要实现AID三大特性，才有可能实现一致性。例如，原子性无法保证，显然一致性也无法保证。</p>
-<p>但是，如果你在事务里故意写出违反约束的代码，一致性还是无法保证的。例如，你在转账的例子中，你的代码里故意不给B账户加钱，那一致性还是无法保证。因此，还必须从应用层角度考虑。</p>
-<p>从应用层面，通过代码判断数据库数据是否有效，然后决定回滚还是提交数据！</p>
-<p><strong>隔离性</strong>：事务内部的操作与其他事务是隔离的，并发执行的各个事务之间不能互相干扰。</p>
-<p>隔离性主要解决并发环境下，事务之间互不干扰，因为并发情况下会出现并发一致性问题。</p>
+<p><strong>SynchronousQueue</strong>：</p>
 <ul>
-<li>丢失修改</li>
-<li>脏读</li>
-<li>不可重复读</li>
-<li>幻读</li>
+<li>synchronousQueue 是一个不存储任何元素的阻塞队列，每一个put操作必须等待take操作，否则不能添加元素。同时它也支持公平锁和非公平锁。</li>
+<li>synchronousQueue 的容量并不是1，而是0。因为它本身不会持有任何元素，它是直接传递的，synchronousQueue 会把元素从生产者直接传递给消费者，在这个过程中能够是不需要存储的。</li>
+<li>线程池 CachedThreadPool 就是利用了该队列，Executors.newCachedThreadPool()，因为这个线程池它的最大线程数是Integer.MAX_VALUE，它是更具需求来创建线程，所有的线程都是临时线程，使用完后空闲60秒则被回收，</li>
 </ul>
-<p>这些并发一致性问题，从读写角度考虑，可以通过不同的方式解决</p>
+<p><strong>DelayQueue</strong>：</p>
 <ul>
-<li>(一个事务)写操作对(另一个事务)写操作的影响：锁机制保证隔离性</li>
-<li>(一个事务)写操作对(另一个事务)读操作的影响：MVCC保证隔离性</li>
-</ul>
-<p>按照锁的粒度，可以分位表锁和行锁。MyIsam只支持表锁，而InnoDB同时支持表锁和行锁。</p>
-<p>MVCC（Multi-Version Concurrency Control）：多版本并发控制，通过版本链、undo log、ReadView实现。</p>
-<ul>
-<li>隐藏列：InnoDB中每行数据都有隐藏列，隐藏列中包含了本行数据的事务id、指向undo log的指针等。</li>
-<li>基于undo log的版本链：前面说到每行数据的隐藏列中包含了指向undo log的指针，而每条undo log也会指向更早版本的undo log，从而形成一条版本链。</li>
-<li>ReadView：通过隐藏列和版本链，MySQL可以将数据恢复到指定版本；但是具体要恢复到哪个版本，则需要根据ReadView来确定。所谓ReadView，是指事务（记做事务A）在某一时刻给整个事务系统（trx_sys）打快照，之后再进行读操作时，会将读取到的数据中的事务id与trx_sys快照比较，从而判断数据对该ReadView是否可见，即对事务A是否可见。</li>
-</ul>
-<p>ReadView中的重要id</p>
-<ul>
-<li>trx_ids: 当前系统活跃(未提交)事务版本号集合。</li>
-<li>low_limit_id: 创建当前read view 时“当前系统最大事务版本号+1”。</li>
-<li>up_limit_id: 创建当前read view 时“系统正处于活跃事务最小版本号”</li>
-<li>creator_trx_id: 创建当前read view的事务版本号；</li>
-</ul>
-<p>SQL标准中定义了四种隔离级别，并规定了每种隔离级别下上述几个问题是否存在，mysql默认的隔离级别为RR（可重复读）。<br><img src="https://img-blog.csdnimg.cn/20210416225104783.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>上面说的MVCC用于支持RC和RR的实现，是一种非加锁的形式。</p>
-<ul>
-<li>RR是在事务开始后第一次执行select前创建ReadView，直到事务提交都不会再创建。根据前面的介绍，RR可以避免脏读、不可重复读和幻读。</li>
-<li>RC每次执行select前都会重新建立一个新的ReadView，因此如果事务A第一次select之后，事务B对数据进行了修改并提交，那么事务A第二次select时会重新建立新的ReadView，因此事务B的修改对事务A是可见的。因此RC隔离级别可以避免脏读，但是无法避免不可重复读和幻读。</li>
-</ul>
-<p>解决幻读：</p>
-<ul>
-<li>通过MVCC非加锁读，也称作快照读、一致性读</li>
-<li>加锁读：record lock(记录锁) + gap lock(间隙锁)</li>
-</ul>
-<p><strong>持久性</strong>：事务一旦提交，它对数据库的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。</p>
-<p>使用redo log实现，保证数据库在宕机的情况下，数据也不会丢失。</p>
-<p>redo log 和 bin log的区别：</p>
-<ul>
-<li>作用不同：redo log是用于crash recovery的，保证MySQL宕机也不会影响持久性；binlog是用于point-in-time recovery的，保证服务器可以基于时间点恢复数据，此外binlog还用于主从复制。</li>
-<li>层次不同：redo log是InnoDB存储引擎实现的，而binlog是MySQL的服务器层(可以参考文章前面对MySQL逻辑架构的介绍)实现的，同时支持InnoDB和其他存储引擎。</li>
-<li>redo log是物理日志，内容基于磁盘的Page；binlog的内容是二进制的，根据binlog_format参数的不同，可能基于sql语句、基于数据本身或者二者的混合。</li>
-<li>写入时机不同：binlog在事务提交时写入；redo log的写入时机相对多元：事务提交时、master thread每秒刷盘等。</li>
+<li>DelayQueue 是一个使用PriorityBlockingQueue的延迟获取的无界队列。具有“延迟”的功能。</li>
+<li>DelayQueue 应用场景：1. 缓存系统的设计：可以用DelayQueue保存缓存元素的有效期，使用一个线程循环查询DelayQueue，一旦能从DelayQueue中获取元素时，表示缓存有效期到了。2. 定时任务调度。使用DelayQueue保存当天将会执行的任务和执行时间，一旦从DelayQueue中获取到任务就开始执行，从比如TimerQueue就是使用DelayQueue实现的。</li>
+<li>DelayQueue是一个存放实现Delayed接口的数据的无界阻塞队列，只有当数据对象的延时时间达到时才能插入到队列进行存储。如果当前所有的数据都还没有达到创建时所指定的延时期，则队列没有队头，并且线程通过poll等方法获取数据元素则返回null。所谓数据延时期满时，则是通过Delayed接口的getDelay(TimeUnit.NANOSECONDS)来进行判定，如果该方法返回的是小于等于0则说明该数据元素的延时期已满。</li>
 </ul>
 <p><strong>参考</strong>：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kismetv/p/10331633.html">深入学习Mysql事务</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kismetv/p/10331633.html">数据库MVCC</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CL0610/Java-concurrency/blob/master/19.%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E4%B9%8BBlockingQueue/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E4%B9%8BBlockingQueue.md">并发容器之BlockingQueue</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038178346">JAVA中常见的阻塞队列详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1330391">并发队列-无界阻塞优先级队列PriorityBlockingQueue原理探究</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1636024">Java-BlockingQueue 接口5大实现类的使用场景</a></li>
 </ol>
 
 
@@ -274,13 +281,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/04/18/Java 并发/阻塞队列BlockingQueue/" data-toggle="tooltip" data-placement="top" title="阻塞队列BlockingQueue">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/04/13/Mysql/Mysql相关知识(四)/" data-toggle="tooltip" data-placement="top" title="Mysql相关知识（四）">Next Post &rarr;</a>
+                            <a href="/2021/04/16/Mysql/Mysql相关知识(五)/" data-toggle="tooltip" data-placement="top" title="Mysql相关知识（五）">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -307,7 +310,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
+                          <a class="tag" href="/tags/#Java并发" title="Java并发">Java并发</a>
                         
                     </div>
                 </section>

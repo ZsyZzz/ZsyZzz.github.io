@@ -195,6 +195,37 @@
 
     <div class="post-preview">
 
+        <a href="/2021/04/18/Java 并发/阻塞队列BlockingQueue/">
+            <h2 class="post-title">
+                阻塞队列BlockingQueue
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍BlockingQueue阻塞队列相关知识
+
+简介BlockingQueue是JUC包下的一个接口，通常用于一个线程生产对象，而另外一个线程消费这些对象的场景。
+方法：BlockingQueue继承Queue接口，因此，对数据元素的基本操作有：
+
+插入元素
+
+
+add(E e) ：往队列插入数据，当队列满时，插入元素时会抛出IllegalStateException异常；
+offe......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-18
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
         <a href="/2021/04/16/Mysql/Mysql相关知识(五)/">
             <h2 class="post-title">
                 Mysql相关知识（五）
@@ -464,31 +495,6 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/03/24/JVM/Java虚拟机内存结构/">
-            <h2 class="post-title">
-                深入了解JVM内存结构
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文主要介绍JVM内存结构相关知识，需要注意JVM内存结构和Java内存模型是两个概念。
-
-运行时数据区Java虚拟机在执行程序时会把它所管理的内存划分为若干个不同的数据区域。这些区域有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而一直存在，有些区域则依赖用户线程的启动和结束而建立和销毁。
-下图是 JVM 整体架构，中间部分就是 Java 虚拟机定义的各种运行时数据区域。......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-03-24
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -541,15 +547,8 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
                                             
                                     
                                         <a href="/tags/#Java并发" title="Java并发"
-                                            rel="5">
+                                            rel="6">
                                             Java并发
-                                        </a>
-                                        
-                                            
-                                    
-                                        <a href="/tags/#Mysql" title="Mysql"
-                                            rel="5">
-                                            Mysql
                                         </a>
                                         
                                             
@@ -575,6 +574,13 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
                                         
                                             
                                     
+                                            
+                                    
+                                        <a href="/tags/#Mysql" title="Mysql"
+                                            rel="5">
+                                            Mysql
+                                        </a>
+                                        
                                             
                             </div>
                         </section>
