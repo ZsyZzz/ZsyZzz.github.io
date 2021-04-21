@@ -13,11 +13,11 @@
 
     <title>
         
-          Redis相关知识----数据类型 - ShuYou&#39;s Blog
+          Redis相关知识----对象机制 - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/2021/04/19/Redis/Redis相关知识----数据类型/">
+    <link rel="canonical" href="https://shuyou.site/2021/04/21/Redis/Redis相关知识----对象机制/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -174,11 +174,11 @@
                           <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
                         
                     </div>
-                    <h1>Redis相关知识----数据类型</h1>
+                    <h1>Redis相关知识----对象机制</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Zsy on
-                        2021-04-19
+                        2021-04-21
                     </span>
                 </div>
             </div>
@@ -198,263 +198,42 @@
                 post-container">
 
                 <blockquote>
-<p>本文介绍Redis的数据类型相关知识</p>
+<p>本文介绍Redis对象机制相关知识，只是对底层做一些了解，并不深入底层的数据结构。</p>
 </blockquote>
-<h3 id="Redis数据结构简介"><a href="#Redis数据结构简介" class="headerlink" title="Redis数据结构简介"></a>Redis数据结构简介</h3><p>对于Redis，所有的Key都是字符串。我们在谈Redis基础数据结构时，讨论的是存储值的数据类型，主要包括常见的5种数据类型，分别是：String、List、Set、Zset、Hash。</p>
-<p><img src="https://img-blog.csdnimg.cn/202104192159585.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="Redis数据结构"></p>
-<h3 id="String字符串"><a href="#String字符串" class="headerlink" title="String字符串"></a>String字符串</h3><p>String是redis中最基本的数据类型，一个key对应一个value。String类型是二进制安全的，意思是 redis 的 string 可以包含任何数据。如数字，字符串，jpg图片或者序列化的对象。</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>GET</td>
-<td>获取存储在给定键中的值</td>
-<td>GET value</td>
-</tr>
-<tr>
-<td>SET</td>
-<td>设置存储在给定键中的值</td>
-<td>SET value</td>
-</tr>
-<tr>
-<td>DEL</td>
-<td>删除存储在给定键中的值</td>
-<td>DEL value</td>
-</tr>
-<tr>
-<td>INCR</td>
-<td>将键存储的值加1</td>
-<td>INCR key</td>
-</tr>
-<tr>
-<td>DECR</td>
-<td>将键存储的值减1</td>
-<td>DECR key</td>
-</tr>
-<tr>
-<td>INCRBY</td>
-<td>将键存储的值加上整数</td>
-<td>INCRBY key amount</td>
-</tr>
-<tr>
-<td>DECRBY</td>
-<td>将键存储的值减去整数</td>
-<td>DECRBY key amount</td>
-</tr>
-</tbody></table>
-<p><strong>使用场景</strong>：</p>
+<p>Redis的5种基础数据类型，在底层是采用对象机制实现的。</p>
+<p>Redis的每种对象其实都由对象结构(redisObject) 与 对应编码的数据结构组合而成，而每种对象类型对应若干编码方式，不同的编码方式所对应的底层数据结构是不同的。<br><img src="https://img-blog.csdnimg.cn/20210421170649889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="Redis对象机制"></p>
+<p><strong>redisObject</strong>:<br>redisObject 是 Redis 类型系统的核心, 数据库中的每个键、值, 以及 Redis 本身处理的参数, 都表示为这种数据类型。<br><img src="https://img-blog.csdnimg.cn/20210421171948867.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中type、encoding和ptr是最重要的三个属性。</p>
 <ul>
-<li>缓存： 经典使用场景，把常用信息，字符串，图片或者视频等信息放到redis中，redis作为缓存层，mysql做持久化层，降低mysql的读写压力。</li>
-<li>计数器：redis是单线程模型，一个命令执行完才会执行下一个，同时数据可以一步落地到其他的数据源。</li>
-<li>session：常见方案spring session + redis实现session共享。</li>
+<li>type记录了对象所保存的值的类型，它的值可能是以下常量中的一个：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> - 对象类型</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_STRING 0 <span class="comment">// 字符串</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_LIST 1 <span class="comment">// 列表</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_SET 2 <span class="comment">// 集合</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ZSET 3 <span class="comment">// 有序集</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_HASH 4 <span class="comment">// 哈希表</span></span></span><br></pre></td></tr></table></figure></li>
+<li>encoding记录了对象所保存的值的编码，它的值可能是以下常量中的一个：</li>
 </ul>
-<h3 id="List列表"><a href="#List列表" class="headerlink" title="List列表"></a>List列表</h3><p>Redis中的List其实就是链表（Redis用双端链表实现List）。</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>RPUSH</td>
-<td>将给定值推入到列表右端</td>
-<td>RPUSH key value</td>
-</tr>
-<tr>
-<td>LPUSH</td>
-<td>将给定值推入到列表左端</td>
-<td>LPUSH  key value</td>
-</tr>
-<tr>
-<td>RPOP</td>
-<td>从列表的右端取出一个值</td>
-<td>RPOP key value</td>
-</tr>
-<tr>
-<td>LPOP</td>
-<td>从列表的左端取出一个值</td>
-<td>LPOP key value</td>
-</tr>
-<tr>
-<td>LRANGE</td>
-<td>获取列表在给定范围上的所有值</td>
-<td>LRANGE key 0 -1</td>
-</tr>
-<tr>
-<td>LINDEX</td>
-<td>通过索引获取列表中的元素</td>
-<td>LINDEX key index</td>
-</tr>
-</tbody></table>
-<p><strong>使用Redis List的技巧</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 对象编码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_RAW 0     <span class="comment">/* Raw representation */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_INT 1     <span class="comment">/* Encoded as integer */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_HT 2      <span class="comment">/* Encoded as hash table */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_ZIPMAP 3  <span class="comment">/* 注意：版本2.6后不再使用. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_LINKEDLIST 4 <span class="comment">/* 注意：不再使用了，旧版本2.x中String的底层之一. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_ZIPLIST 5 <span class="comment">/* Encoded as ziplist */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_INTSET 6  <span class="comment">/* Encoded as intset */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_SKIPLIST 7  <span class="comment">/* Encoded as skiplist */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_EMBSTR 8  <span class="comment">/* Embedded sds string encoding */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_QUICKLIST 9 <span class="comment">/* Encoded as linked list of ziplists */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_STREAM 10 <span class="comment">/* Encoded as a radix tree of listpacks */</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>LPUSH + RPOP 相当于队列</li>
-<li>LPUSH + LPOP 相当于栈</li>
-<li>LPUSH + BRPOP 相当于消息队列</li>
+<li>ptr是一个指针，指向实际保存值的数据结构，这个数据结构由type和encoding属性决定。如果一个redisObject 的type 属性为OBJ_LIST ， encoding 属性为OBJ_ENCODING_QUICKLIST ，那么这个对象就是一个Redis 列表（List)，它的值保存在一个QuickList的数据结构内，而ptr 指针就指向quicklist的对象；</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
+<p><strong>当执行一个处理数据类型命令的时候，redis执行以下步骤</strong>：</p>
 <ul>
-<li>微博TimeLine: 有人发布微博，用lpush加入时间轴，展示新的列表信息。</li>
-<li>消息队列：可以利用List的 PUSH 操作，将任务存放在List中，然后工作线程再用 POP 操作将任务取出进行执行，相当于生产者消费者模型。</li>
+<li>根据给定的key，在数据库字典中查找和他相对应的redisObject，如果没找到，就返回NULL；</li>
+<li>检查redisObject的type属性和执行命令所需的类型是否相符，如果不相符，返回类型错误；</li>
+<li>根据redisObject的encoding属性所指定的编码，选择合适的操作函数来处理底层的数据结构；</li>
+<li>返回数据结构的操作结果作为命令的返回值。</li>
 </ul>
-<h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><p>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SADD</td>
-<td>向集合添加一个或多个成员</td>
-<td>SADD set-key value</td>
-</tr>
-<tr>
-<td>SREM</td>
-<td>向集合删除一个或多个成员</td>
-<td>SREM set-key value</td>
-</tr>
-<tr>
-<td>SCARD</td>
-<td>获取集合的成员数</td>
-<td>SCARD set-key</td>
-</tr>
-<tr>
-<td>SMEMBERS</td>
-<td>返回集合中的所有成员</td>
-<td>SMEMBERS set-key</td>
-</tr>
-<tr>
-<td>SISMEMBER</td>
-<td>判断 member 元素是否是集合 key 的成员</td>
-<td>SISMEMBER set-key value</td>
-</tr>
-</tbody></table>
-<p><strong>使用场景</strong>：</p>
+<p>比如现在执行LPOP命令：<br><img src="https://img-blog.csdnimg.cn/20210421173348258.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>字符串对象</strong>：<br>从第一张图可以看出字符串对象的编码类型：</p>
 <ul>
-<li>标签（tag）,给用户添加标签，或者用户给消息添加标签，这样有同一标签或者类似标签的可以给推荐关注的事或者关注的人。</li>
-<li>点赞，或点踩，收藏等，可以放到set中实现</li>
+<li>int 编码：保存的是可以用 long 类型表示的整数值。 </li>
+<li>embstr 编码：保存长度小于44字节的字符串（redis3.2版本之前是39字节，之后是44字节）。 </li>
+<li>raw 编码：保存长度大于44字节的字符串（redis3.2版本之前是39字节，之后是44字节）。</li>
 </ul>
-<h3 id="Hash散列"><a href="#Hash散列" class="headerlink" title="Hash散列"></a>Hash散列</h3><p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>HSET</td>
-<td>添加键值对</td>
-<td>HSET hash-key sub-key1 value1</td>
-</tr>
-<tr>
-<td>HGET</td>
-<td>获取指定散列键的值</td>
-<td>HGET hash-key sub-key1</td>
-</tr>
-<tr>
-<td>HGETALL</td>
-<td>获取散列中包含的所有键值对</td>
-<td>HGETALL hash-key</td>
-</tr>
-<tr>
-<td>HDEL</td>
-<td>如果给定键存在于散列中，那么就移除这个键</td>
-<td>HDEL hash-key sub-key1</td>
-</tr>
-</tbody></table>
-<p><strong>使用场景</strong>：</p>
-<ul>
-<li>缓存： 能直观，相比string更节省空间，的维护缓存信息，如用户信息，视频信息等。</li>
-</ul>
-<h3 id="Sorted-Sets有序集合"><a href="#Sorted-Sets有序集合" class="headerlink" title="Sorted Sets有序集合"></a>Sorted Sets有序集合</h3><p>Redis 有序集合和集合一样也是 string 类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序。</p>
-<p>有序集合的成员是唯一的,但分数(score)却可以重复。集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ZADD</td>
-<td>将所有指定成员添加到键为key有序集合（sorted set）里面</td>
-<td>ZADD zset-key score member1</td>
-</tr>
-<tr>
-<td>ZREM</td>
-<td>如果给定元素成员存在于有序集合中，那么就移除这个元素</td>
-<td>ZREM zset-key member1</td>
-</tr>
-<tr>
-<td>ZRANGE</td>
-<td>返回存储在有序集合key中的指定范围的元素。</td>
-<td>ZRANGE zset-key start stop withccores</td>
-</tr>
-<tr>
-<td>ZCOUNT</td>
-<td>返回有序集key中，score值在min和max之间的成员数。</td>
-<td>ZCOUNT zset-key min max</td>
-</tr>
-</tbody></table>
-<p><strong>使用场景</strong>：</p>
-<ul>
-<li>排行榜：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户关注数，更新时间，字数等打分，做排行。</li>
-</ul>
-<h3 id="HyperLogLogs（基数统计）"><a href="#HyperLogLogs（基数统计）" class="headerlink" title="HyperLogLogs（基数统计）"></a>HyperLogLogs（基数统计）</h3><p>什么是基数？</p>
-<p> 举个例子，A = {1, 2, 3, 4, 5}， B = {3, 5, 6, 7, 9}；那么基数（不重复的元素）= 1, 2, 4, 6, 7, 9； （允许容错，即可以接受一定误差） </p>
-<p>HyperLogLogs 基数统计用来解决什么问题？ </p>
-<p>这个结构可以非常省内存的去统计各种计数，比如注册 IP 数、每日访问 IP 数、页面实时UV、在线用户数，共同好友数等。</p>
-<h3 id="Bitmap-（位存储）"><a href="#Bitmap-（位存储）" class="headerlink" title="Bitmap （位存储）"></a>Bitmap （位存储）</h3><p>Bitmap 即位图数据结构，都是操作二进制位来进行记录，只有0 和 1 两个状态。</p>
-<p>用来解决什么问题？</p>
-<p>比如：统计用户信息，活跃，不活跃！ 登录，未登录！ 打卡，不打卡！ 两个状态的，都可以使用 Bitmaps！</p>
-<p><strong>命令</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>简述</th>
-<th>使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SETBIT</td>
-<td>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</td>
-<td>SETBIT bit-key offset value</td>
-</tr>
-<tr>
-<td>GETBIT</td>
-<td>对 key 所储存的字符串值，获取指定偏移量上的位(bit)</td>
-<td>GETBIT bit-key offset</td>
-</tr>
-<tr>
-<td>BITCOUNT</td>
-<td>被设置为 1 的位的数量</td>
-<td>BITCOUNT bit-key</td>
-</tr>
-</tbody></table>
-<h3 id="geospatial-地理位置"><a href="#geospatial-地理位置" class="headerlink" title="geospatial (地理位置)"></a>geospatial (地理位置)</h3><p>Redis 的 Geo 可以推算地理位置的信息: 两地之间的距离, 方圆几里的人。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210421184642144.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>列表对象</strong>：</p>
+<p>列表对象的编码是quicklist。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210421184628366.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>哈希对象</strong>：<br>哈希对象的编码可以是 ziplist 或者 hashtable；对应的底层实现有两种, 一种是ziplist, 一种是dict。<br><img src="https://img-blog.csdnimg.cn/2021042118473249.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>集合对象</strong>：<br>集合对象的编码可以是 intset 或者 hashtable; 底层实现有两种, 分别是intset和dict。 显然当使用intset作为底层实现的数据结构时, 集合中存储的只能是数值数据, 且必须是整数; 而当使用dict作为集合对象的底层实现时, 是将数据全部存储于dict的键中, 值字段闲置不用。<br><img src="https://img-blog.csdnimg.cn/20210421185640615.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>有序集合对象</strong>：<br>有序集合的底层实现依然有两种, 一种是使用ziplist作为底层实现, 另外一种比较特殊, 底层使用了两种数据结构: dict与skiplis。<br><img src="https://img-blog.csdnimg.cn/2021042119004922.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210421190111616.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其实有序集合单独使用字典或跳跃表其中一种数据结构都可以实现，但是这里使用两种数据结构组合起来，原因是假如我们单独使用 字典，虽然能以 O(1) 的时间复杂度查找成员的分值，但是因为字典是以无序的方式来保存集合元素，所以每次进行范围操作的时候都要进行排序；假如我们单独使用跳跃表来实现，虽然能执行范围操作，但是查找操作有 O(1)的复杂度变为了O(logN)。因此Redis使用了两种数据结构来共同实现有序集合。</p>
 <p><strong>参考</strong>：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/db/nosql-redis/db-redis-data-types.html">Redis 5种基础数据类型详解</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/db/nosql-redis/db-redis-data-type-special.html">Redis 3种特殊类型详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/db/nosql-redis/db-redis-data-type-enc.html#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1">redis对象与编码(底层结构)对应关系详解</a></li>
 </ol>
 
 
@@ -464,13 +243,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/04/21/Redis/Redis相关知识----对象机制/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----对象机制">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/04/18/Java 并发/阻塞队列BlockingQueue/" data-toggle="tooltip" data-placement="top" title="阻塞队列BlockingQueue">Next Post &rarr;</a>
+                            <a href="/2021/04/19/Redis/Redis相关知识----数据类型/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----数据类型">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
