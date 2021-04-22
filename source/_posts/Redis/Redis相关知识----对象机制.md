@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Redis相关知识----数据类型"
+title:      "Redis相关知识----对象机制"
 date:       2021-4-21
 author:     "Zsy"
 tags:
