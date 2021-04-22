@@ -93,29 +93,35 @@
 
                     
                         
-                                
+                    
                         
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
-                            
-                                
                         
-                                
+                    
+                        
+                    
                         
                             <li>
                                 <a href="/tags/">
                                     Tags
                                 </a>
                             </li>
-                            
-                                
+                        
+                    
 
-                                    <li>
-                                        <a href="/about/">About</a>
-                                    </li>
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+
+                <li class="search-icon">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
                 </ul>
             </div>
         </div>
@@ -151,6 +157,7 @@
         }
     }
 </script>
+
 
     <!-- Main Content -->
     
@@ -193,6 +200,36 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/03/08/Java 并发/Java并发基础/">
+            <h2 class="post-title">
+                Java并发基础
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本篇介绍Java并发的基础知识，主要包括线程安全，共享变量的内存可见性，synchronized和volatile关键字，指令重排序，伪共享等相关知识。
+
+并发与并行
+并发是指同一时间段内多个任务执行。
+并行是指同一时刻，多个任务同时执行。
+
+并发是单位时间内，一个CPU切换时间片对多个任务进行处理
+并行是同一时刻，多个CPU对多个任务同时进行处理
+线程安全共享资源：该资源被多个线程所持有......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-08
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/03/05/Java 并发/ThreadLocal/">
@@ -493,6 +530,8 @@ github地址
                                         </a>
                                         
                                             
+                                    
+                                            
                             </div>
                         </section>
                         
@@ -627,6 +666,10 @@ github地址
 <script src="/js/hux-blog.min.js"></script>
 
 
+<!-- search -->
+
+<script src="/js/search.min.js"></script>
+
 
 <!-- async load function -->
 <script>
@@ -693,6 +736,56 @@ github地址
 <!-- Side Catalog -->
 
 
+
+
+    <!-- Search -->
+    <div class="search-page">
+    <div class="search-icon-close-container">
+      <span class="search-icon-close">
+        <i class="fa fa-chevron-down"></i>
+      </span>
+    </div>
+    <div class="search-main container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <form></form>
+          <input type="text" id="search-input" placeholder="search: ">
+          
+          <div id="search-results" class="mini-post-list"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+            searchFunc('/search.json', 'search-input', 'search-results');
+        });
+    });
+</script>
 
 
 

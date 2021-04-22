@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A blog belongs to ShuYou">
+    <meta name="keyword"  content="blog life idea">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Hux主题添加搜索 - ShuYou&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://shuyou.site/2021/04/22/Modify/Hux主题添加搜索/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                ShuYou&#39;s Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/archives/">
+                                    Archives
+                                </a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                    
+
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+
+                <li class="search-icon">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e) {
+        if ($navbar.className.indexOf('in') > 0) {
+            // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function () {
+                // prevent frequently toggle
+                if ($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            }, 400)
+        } else {
+            // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Modify Theme" title="Modify Theme">Modify Theme</a>
+                        
+                    </div>
+                    <h1>Hux主题添加搜索</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Zsy on
+                        2021-04-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文介绍下给hux主题添加搜索功能，主要是抄 <a target="_blank" rel="noopener" href="https://huangxuan.me/">黄玄</a> 的作业，可以去参考<a target="_blank" rel="noopener" href="https://github.com/Huxpro/huxpro.github.io/">huxpro</a></p>
+</blockquote>
+<p><strong>使用插件</strong>：hexo-generator-search</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-search</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>配置 _config.yml</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">50</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>增加模板 search.ejs</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;search-page&quot;</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;search-icon-close-container&quot;</span>&gt;</span><br><span class="line">      &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;search-icon-close&quot;</span>&gt;</span><br><span class="line">        &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-chevron-down&quot;</span>&gt;&lt;/i&gt;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;search-main container&quot;</span>&gt;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;row&quot;</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1&quot;</span>&gt;</span><br><span class="line">          &lt;form&gt;&lt;/form&gt;</span><br><span class="line">          &lt;input type=<span class="string">&quot;text&quot;</span> id=<span class="string">&quot;search-input&quot;</span> placeholder=<span class="string">&quot;search: &quot;</span>&gt;</span><br><span class="line">          </span><br><span class="line">          &lt;div id=<span class="string">&quot;search-results&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mini-post-list&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> $searchPage = $(<span class="string">&#x27;.search-page&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> $searchOpen = $(<span class="string">&#x27;.search-icon&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> $searchClose = $(<span class="string">&#x27;.search-icon-close&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> $searchInput = $(<span class="string">&#x27;#search-input&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> $body = $(<span class="string">&#x27;body&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        $searchOpen.on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            e.preventDefault();</span><br><span class="line">            $searchPage.toggleClass(<span class="string">&#x27;search-active&#x27;</span>);</span><br><span class="line">            <span class="keyword">var</span> prevClasses = $body.attr(<span class="string">&#x27;class&#x27;</span>) || <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                $body.addClass(<span class="string">&#x27;no-scroll&#x27;</span>);</span><br><span class="line">            &#125;, <span class="number">400</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ($searchPage.hasClass(<span class="string">&#x27;search-active&#x27;</span>)) &#123;</span><br><span class="line">                $searchClose.on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                    e.preventDefault();</span><br><span class="line">                    $searchPage.removeClass(<span class="string">&#x27;search-active&#x27;</span>);</span><br><span class="line">                    $body.attr(<span class="string">&#x27;class&#x27;</span>, prevClasses);  <span class="comment">// from closure </span></span><br><span class="line">                &#125;);</span><br><span class="line">                $searchInput.focus();</span><br><span class="line">            &#125;</span><br><span class="line">            searchFunc(<span class="string">&#x27;/search.json&#x27;</span>, <span class="string">&#x27;search-input&#x27;</span>, <span class="string">&#x27;search-results&#x27;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>把search.ejs导入到 layout.ejs中:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Search --&gt;</span><br><span class="line">&lt;%- partial(<span class="string">&#x27;_partial/search&#x27;</span>)%&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>新增search.js</strong>:</p>
+<p>定义 searchFunc 函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchFunc = <span class="function"><span class="keyword">function</span> (<span class="params">path, search_id, content_id</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url: path,</span><br><span class="line">        dataType: <span class="string">&quot;json&quot;</span>,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">datas</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> $input = <span class="built_in">document</span>.getElementById(search_id);</span><br><span class="line">            <span class="keyword">var</span> $resultContent = <span class="built_in">document</span>.getElementById(content_id);</span><br><span class="line">            $input.addEventListener(<span class="string">&#x27;input&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> keywords = <span class="built_in">this</span>.value.trim().toLowerCase().split(<span class="regexp">/[\s\-]+/</span>);</span><br><span class="line">                <span class="keyword">var</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">                $resultContent.innerHTML = <span class="string">&quot;&quot;</span>;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">this</span>.value.trim().length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                datas.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">var</span> isMatch = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">var</span> content_index = [];</span><br><span class="line">                    <span class="keyword">var</span> data_title = data.title.trim().toLowerCase();</span><br><span class="line">                    <span class="keyword">var</span> data_content = data.content.trim().replace(<span class="regexp">/&lt;[^&gt;]+&gt;/g</span>, <span class="string">&quot;&quot;</span>).toLowerCase();</span><br><span class="line">                    <span class="keyword">var</span> data_url = data.url;</span><br><span class="line">                    <span class="keyword">var</span> index_title = <span class="number">-1</span>;</span><br><span class="line">                    <span class="keyword">var</span> index_content = <span class="number">-1</span>;</span><br><span class="line">                    <span class="keyword">var</span> first_occur = <span class="number">-1</span>;</span><br><span class="line">                    <span class="comment">// only match artiles with not empty titles and contents</span></span><br><span class="line">                    <span class="keyword">if</span> (data_title != <span class="string">&#x27;&#x27;</span> &amp;&amp; data_content != <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">                        keywords.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">keyword, i</span>) </span>&#123;</span><br><span class="line">                            index_title = data_title.indexOf(keyword);</span><br><span class="line">                            index_content = data_content.indexOf(keyword);</span><br><span class="line">                            <span class="keyword">if</span> (index_title &lt; <span class="number">0</span> &amp;&amp; index_content &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                                isMatch = <span class="literal">false</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                <span class="keyword">if</span> (index_content &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                                    index_content = <span class="number">0</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                                    first_occur = index_content;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// show search results</span></span><br><span class="line">                    <span class="keyword">if</span> (isMatch) &#123;</span><br><span class="line">                        str += <span class="string">&quot;&lt;div class=&#x27;post-preview item&#x27;&gt;&lt;a href=&#x27;&quot;</span> + data_url +<span class="string">&quot;&#x27;&gt;&quot;</span> +<span class="string">&quot;&lt;h2 class=&#x27;post-title&#x27;&gt;&quot;</span> + data_title +<span class="string">&quot;&lt;/h2&gt;&quot;</span> + <span class="string">&quot;&lt;/a&gt;&quot;</span>;</span><br><span class="line">                        <span class="keyword">var</span> content = data.content.trim().replace(<span class="regexp">/&lt;[^&gt;]+&gt;/g</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">                        <span class="keyword">if</span> (first_occur &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="comment">// cut out 40 characters</span></span><br><span class="line">                            <span class="keyword">var</span> start = first_occur - <span class="number">20</span>;</span><br><span class="line">                            <span class="keyword">var</span> end = first_occur + <span class="number">20</span>;</span><br><span class="line">                            <span class="keyword">if</span> (start &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                                start = <span class="number">0</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (start == <span class="number">0</span>) &#123;</span><br><span class="line">                                end = <span class="number">40</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (end &gt; content.length) &#123;</span><br><span class="line">                                end = content.length;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">var</span> match_content = content.substring(start, end);</span><br><span class="line">                            <span class="comment">// highlight all keywords</span></span><br><span class="line">                            keywords.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">keyword</span>) </span>&#123;</span><br><span class="line">                                <span class="keyword">var</span> regS = <span class="keyword">new</span> <span class="built_in">RegExp</span>(keyword, <span class="string">&quot;gi&quot;</span>);</span><br><span class="line">                                match_content = match_content.replace(regS, <span class="string">&quot;&lt;em class=\&quot;search-keyword\&quot;&gt;&quot;</span> + keyword + <span class="string">&quot;&lt;/em&gt;&quot;</span>);</span><br><span class="line">                            &#125;);</span><br><span class="line"></span><br><span class="line">                            str += <span class="string">&quot;&lt;p class=\&quot;search-result\&quot;&gt;&quot;</span> + match_content + <span class="string">&quot;...&lt;/p&gt;&lt;hr&gt;&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        str+=<span class="string">&quot;&lt;/div&gt;&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                $resultContent.innerHTML = str;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>增加样式</strong>：</p>
+<p>抄huxpro的作业：<a target="_blank" rel="noopener" href="https://huangxuan.me/">hux</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/04/21/Redis/Redis相关知识----对象机制/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----对象机制">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Modify Theme" title="Modify Theme">Modify Theme</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ZouShuYou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ShuYou&#39;s Blog 2021 
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a> |                        
+                    Power by <a href="http://shuyou.site">ShuYou</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- search -->
+
+<script src="/js/search.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://shuyou.site/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+    <!-- Search -->
+    <div class="search-page">
+    <div class="search-icon-close-container">
+      <span class="search-icon-close">
+        <i class="fa fa-chevron-down"></i>
+      </span>
+    </div>
+    <div class="search-main container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <form></form>
+          <input type="text" id="search-input" placeholder="search: ">
+          
+          <div id="search-results" class="mini-post-list"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+            searchFunc('/search.json', 'search-input', 'search-results');
+        });
+    });
+</script>
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

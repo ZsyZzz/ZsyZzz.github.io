@@ -93,29 +93,35 @@
 
                     
                         
-                                
+                    
                         
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
-                            
-                                
                         
-                                
+                    
+                        
+                    
                         
                             <li>
                                 <a href="/tags/">
                                     Tags
                                 </a>
                             </li>
-                            
-                                
+                        
+                    
 
-                                    <li>
-                                        <a href="/about/">About</a>
-                                    </li>
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+
+                <li class="search-icon">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
                 </ul>
             </div>
         </div>
@@ -151,6 +157,7 @@
         }
     }
 </script>
+
 
     <!-- Main Content -->
     
@@ -193,6 +200,34 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/04/22/Modify/Hux主题添加搜索/">
+            <h2 class="post-title">
+                Hux主题添加搜索
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍下给hux主题添加搜索功能，主要是抄 黄玄 的作业，可以去参考huxpro
+
+使用插件：hexo-generator-search
+1npm install hexo-generator-search --save
+
+配置 _config.yml：
+12345search:  path: search.json  field: post  limit: 50  enable: tr......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-22
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/04/21/Redis/Redis相关知识----对象机制/">
@@ -463,37 +498,6 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/03/31/算法/树/二叉树/">
-            <h2 class="post-title">
-                二叉树相关知识
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文介绍二叉树相关知识
-
-定义：树的任意节点至多包含两棵子树。
-数据存储：
-
-链表
-数组
-
-链表方式定义
-123456789101112131415public class TreeNode &#123;    public int val;    public TreeNode left;    public TreeNode right;        public TreeNode(......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-03-31
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -587,6 +591,8 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
                                             Redis
                                         </a>
                                         
+                                            
+                                    
                                             
                             </div>
                         </section>
@@ -722,6 +728,10 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
 <script src="/js/hux-blog.min.js"></script>
 
 
+<!-- search -->
+
+<script src="/js/search.min.js"></script>
+
 
 <!-- async load function -->
 <script>
@@ -788,6 +798,56 @@ Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个
 <!-- Side Catalog -->
 
 
+
+
+    <!-- Search -->
+    <div class="search-page">
+    <div class="search-icon-close-container">
+      <span class="search-icon-close">
+        <i class="fa fa-chevron-down"></i>
+      </span>
+    </div>
+    <div class="search-main container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <form></form>
+          <input type="text" id="search-input" placeholder="search: ">
+          
+          <div id="search-results" class="mini-post-list"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+            searchFunc('/search.json', 'search-input', 'search-results');
+        });
+    });
+</script>
 
 
 
