@@ -1,5 +1,4 @@
 var searchFunc = function (path, search_id, content_id) {
-    console.log("test");
     $.ajax({
         url: path,
         dataType: "json",
