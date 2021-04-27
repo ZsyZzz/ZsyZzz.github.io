@@ -13,11 +13,11 @@
 
     <title>
         
-          Mysql相关知识（一） - ShuYou&#39;s Blog
+          ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/2021/04/07/Mysql/Mysql相关知识(一)/">
+    <link rel="canonical" href="https://shuyou.site/page/4/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -161,31 +161,18 @@
 
     <!-- Main Content -->
     
-<!-- Image to hack wechat -->
-<!-- <img src="https://shuyou.site/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
+<!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
-                        
-                    </div>
-                    <h1>Mysql相关知识（一）</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by Zsy on
-                        2021-04-07
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>
+                        ShuYou&#39;s Blog
+                    </h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">
+                        我不知道去何方，但我已经在路上。
                     </span>
                 </div>
             </div>
@@ -193,121 +180,216 @@
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <blockquote>
-<p>本文介绍Mysql相关知识，主要包括Mysql的基础架构、事务、索引和日志等知识。</p>
-</blockquote>
-<h3 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h3><p><strong>基础架构示意图</strong>：</p>
-<ul>
-<li>连接器：管理连接，权限验证</li>
-<li>查询缓存：命中则直接返回结果</li>
-<li>分析器：词法分析，语法分析</li>
-<li>优化器：执行计划生成，索引选择</li>
-<li>执行器：操作引擎，返回结果</li>
-<li>存储引擎：存储数据，提供读写接口</li>
-</ul>
-<p>Mysql可以分为Server层和存储引擎层，不同的存储引擎公用一个Server层，常见的存储引擎有InnoDB、MyISAM、Memory等，现在Mysql主要使用InnoDB做存储引擎。</p>
-<p>大多数情况下不要使用查询缓存，因为查询缓存失效非常频繁，只要对一个表有更新，这个表上的所有存储查询缓存都会被清空。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210407093017389.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p><strong>redo log</strong>：当有一条记录需要更新时，InnoDB引擎会先把记录写到redo log，并更新内存，这个时候更新就算完成了。同时，InnoDB引擎会在适当的时候，将这个操作记录更新到磁盘里面，而这个更新往往是在系统比较空闲的时候。</p>
-<p>redo log这种机制可以保证即使数据库发生异常重启，之前提交的记录也不会丢失，这个称为crash-safe。</p>
-<p>redo log是InnoDB存储引擎特有的日志，而Server层也有自己的日志，称为bin log。</p>
-<p><strong>bin log</strong>：MySQL的Server层实现的，所有引擎都可以使用。binlog是逻辑日志，记录的是这个语句的原始逻辑，比如“给ID=2这一行的c字段加1 ”。</p>
-<p><strong>两种日志的不同</strong>：</p>
-<ol>
-<li>redo log是InnoDB引擎特有的；binlog是MySQL的Server层实现的，所有引擎都可以使用。</li>
-<li>redo log是物理日志，记录的是“在某个数据页上做了什么修改”；binlog是逻辑日志，记录的是这个语句的原始逻辑，比如“给ID=2这一行的c字段加1 ”。</li>
-<li>redo log是循环写的，空间固定会用完；binlog是可以追加写入的。“追加写”是指binlog文件写到一定大小后会切换到下一个，并不会覆盖以前的日志。</li>
-</ol>
-<p><strong>两阶段提交</strong>：<br><img src="https://img-blog.csdnimg.cn/20210407161757189.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="两阶段提交"><br>如果不使用“两阶段提交”，那么数据库的状态就有可能和用它的日志恢复出来的库的状态不一致。</p>
-<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>索引是为了提高查询效率，实现索引的方式有很多种：</p>
-<ul>
-<li>哈希表</li>
-<li>有序数组</li>
-<li>搜索树</li>
-</ul>
-<p><strong>哈希表</strong>：适用于只有等值查询的场景，区间查询会搜索整个哈希表</p>
-<p><strong>有序数组</strong>：等值查询和区间查询场景中的性能都很优秀，但插入和删除数据需要移动后面的记录，代价太大。只适用于静态存储引擎。</p>
-<p><strong>搜索树</strong>：使用N叉树，减小树高，提高查询效率。</p>
-<p><strong>InnoDB中，表是根据主键顺序以索引形式存放的，这种存储方式称为索引组织表，使用了B+树索引模型。</strong></p>
-<p>主键索引的叶子节点存的是整行的数据(聚簇索引)，非主键索引的叶子节点内容是主键的值(二级索引)</p>
-<p>使用非主键索引的查询需要多扫描一颗索引树，称为回表，因此尽量使用主键查询。</p>
-<p>一个数据页满了，按照B+Tree算法，新增加一个数据页，叫做页分裂，会导致性能下降。空间利用率降低大概50%。当相邻的两个数据页利用率很低的时候会做数据页合并，合并的过程是分裂过程的逆过程。</p>
-<p><strong>索引覆盖</strong>：可以直接提供查询结果，不需要回表，索引已经“覆盖了”查询需求。<br>索引覆盖可以减少树的搜索次数，提升查询性能。</p>
-<p><strong>最左前缀</strong>：B+树这种索引结构，可以利用索引的“最左前缀”，来定位记录。</p>
-<p><strong>索引下推</strong>：可以在索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，减少回表次数。</p>
 
 
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2021/04/09/Mysql/Mysql相关知识(二)/" data-toggle="tooltip" data-placement="top" title="Mysql相关知识（二）">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2021/04/01/Java Concurrent/Java线程池/" data-toggle="tooltip" data-placement="top" title="Java线程池相关知识">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
         
 
-    <!-- Sidebar Container -->
+                <!-- USE SIDEBAR -->
+                <!-- Post Container -->
+                <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
 
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
+                    <!-- Main Content -->
 
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                       
-                          <a class="tag" href="/tags/#Mysql" title="Mysql">Mysql</a>
-                        
-                    </div>
-                </section>
-                
 
-                <!-- Friends Blog -->
+    <div class="post-preview">
+
+        <a href="/2020/11/29/hello-world/">
+            <h2 class="post-title">
+                Welcome to ShuYou Blog
+            </h2>
+            <h3 class="post-subtitle">
+                 "Hello World, Hello Blog"
+            </h3>
+            <div class="post-content-preview">
                 
+“Yeah It’s on. ”
+
+前言这是使用Hexo搭建的博客，使用了Hux的主题。用腾讯云做的服务器，nginx静态资源访问，图片加载很慢，之后再优化下吧。刚开始是打算用来记录Java技术之类的学习，现在想了下这个博客还是用来记录自己平时的想法和生活吧。具体的技术什么的就发表在平台之类的网站上吧。
+计划2020年毕业的，今年也比较特殊，新冠嘛。年初谈了女朋友，当时已经签了三方，可是也......
             </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2020-11-29
+        </p>
 
-        </div>
     </div>
-</article>
+    <hr>
+    
 
 
+        <!-- Pager -->
+
+        <ul class="pager">
+            
+                <li class="previous">
+                    <a href="/page/3/">&larr; Newer Posts</a>
+                </li>
+                
+                    
+        </ul>
+
+                        <!-- 如果开启评论功能 -->
+                        
+
+                </div>
+                <!-- Sidebar Container -->
+                <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                    <!-- Featured Tags -->
+                    
+                        <section>
+                            <!-- no hr -->
+                            <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                            <div class="tags">
+                                
+                                    
+                                            
+                                    
+                                            
+                                    
+                                        <a href="/tags/#JVM" title="JVM"
+                                            rel="3">
+                                            JVM
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java集合" title="Java集合"
+                                            rel="4">
+                                            Java集合
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Java并发" title="Java并发"
+                                            rel="6">
+                                            Java并发
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Mysql" title="Mysql"
+                                            rel="5">
+                                            Mysql
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
+                                            
+                                    
+                                        <a href="/tags/#Redis" title="Redis"
+                                            rel="4">
+                                            Redis
+                                        </a>
+                                        
+                                            
+                                    
+                                            
+                            </div>
+                        </section>
+                        
+
+                            <!-- Short About -->
+                            <section class="visible-md visible-lg">
+                                <hr>
+                                <h5><a href="/about/">ABOUT ME</a></h5>
+                                <div class="short-about">
+
+                                    
+                                        <img src="/img/me.jpg" />
+                                        
+
+                                            
+                                                <p>
+                                                    花有重开日，人无再少年。
+                                                </p>
+                                                
+
+                                                    <!-- SNS Link -->
+                                                    <ul class="list-inline">
+                                                        
+                                                                
+                                                                        
+                                                                            <li>
+                                                                                <a target="_blank"
+                                                                                    href="https://www.zhihu.com/people/ZouShuYou">
+                                                                                    <span class="fa-stack fa-lg">
+                                                                                        <i
+                                                                                            class="fa fa-circle fa-stack-2x"></i>
+                                                                                        <i
+                                                                                            class="fa  fa-stack-1x fa-inverse">知</i>
+                                                                                    </span>
+                                                                                </a>
+                                                                            </li>
+                                                                            
+
+                                                                                
+
+                                                                                        
+
+                                                                                                
+                                                                                                    <li>
+                                                                                                        <a target="_blank"
+                                                                                                            href="https://github.com/ZouShuYou">
+                                                                                                            <span
+                                                                                                                class="fa-stack fa-lg">
+                                                                                                                <i
+                                                                                                                    class="fa fa-circle fa-stack-2x"></i>
+                                                                                                                <i
+                                                                                                                    class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    
 
 
+                                                                                                        
+                                                    </ul>
+                                </div>
+                            </section>
 
-
-
-
+                            <!-- Friends Blog -->
+                            
+                </div>
+                
+    </div>
+</div>
 
     <!-- Footer -->
     <!-- Footer -->
