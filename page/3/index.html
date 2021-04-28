@@ -95,13 +95,13 @@
                         
                     
                         
+                    
+                        
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
-                        
-                    
                         
                     
                         
@@ -200,6 +200,32 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/03/16/Java Base/LinkedHashMap/">
+            <h2 class="post-title">
+                深入了解LinkedHashMap
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍LinkedHashMap的相关知识
+
+简介之前了解过HashMap，HashMap是无序的，当我们希望有顺序地去存储key-value时，就需要使用LinkedHashMap了。
+LinkedHashMap由哈希表+双向链表组成，它继承自HashMap，重写了HashMap的一些方法，可以用于LRU算法，它和HashMap一样不是线程安全的。
+123456789101112131......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-16
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/03/12/Java Concurrent/Java线程通信工具类的使用/">
@@ -440,33 +466,6 @@ github地址
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/01/09/Spring/Spring AOP/Spring AOP介绍/">
-            <h2 class="post-title">
-                Spring AOP的初步了解
-            </h2>
-            <h3 class="post-subtitle">
-                      （一）       
-            </h3>
-            <div class="post-content-preview">
-                
-“初步了解和使用SPRING AOP”
-
-一、AOP1.1 什么是AOPAOP(Aspect Orient Programming)，面向切面编程。AOP是一种编程思想，是对面向对象编程（OOP）的一种补充。
-1.2 AOP实现分类AOP的本质是由AOP框架修改业务组件的字节码，是代理模式的一种应用。按照修改的字节码的时机可以分为两类:
-
-静态AOP: AOP框架在编译阶段进行修改，生成了......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-01-09
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -506,6 +505,13 @@ github地址
                                     
                                             
                                     
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
                                             
                                     
                                         <a href="/tags/#JVM" title="JVM"
@@ -529,9 +535,18 @@ github地址
                                         
                                             
                                     
+                                            
+                                    
                                         <a href="/tags/#Mysql" title="Mysql"
                                             rel="5">
                                             Mysql
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Redis" title="Redis"
+                                            rel="5">
+                                            Redis
                                         </a>
                                         
                                             
@@ -543,11 +558,6 @@ github地址
                                         
                                             
                                     
-                                        <a href="/tags/#算法" title="算法"
-                                            rel="2">
-                                            算法
-                                        </a>
-                                        
                                             
                                     
                                         <a href="/tags/#Spring AOP" title="Spring AOP"
@@ -555,17 +565,6 @@ github地址
                                             Spring AOP
                                         </a>
                                         
-                                            
-                                    
-                                            
-                                    
-                                        <a href="/tags/#Redis" title="Redis"
-                                            rel="4">
-                                            Redis
-                                        </a>
-                                        
-                                            
-                                    
                                             
                             </div>
                         </section>
