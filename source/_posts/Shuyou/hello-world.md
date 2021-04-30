@@ -4,7 +4,7 @@ title:      "Welcome to ShuYou Blog"
 subtitle:   " \"Hello World, Hello Blog\""
 date:       2020-11-29
 author:     "Zsy"
-tags:
+tags:       
     - 记录
 ---
 > “Yeah It's on. ”
