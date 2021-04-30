@@ -95,13 +95,13 @@
                         
                     
                         
-                    
-                        
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
+                        
+                    
                         
                     
                         
@@ -200,6 +200,34 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
+            <h2 class="post-title">
+                Mysql相关知识（三）索引
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Mysql索引相关知识
+
+索引是什么
+索引是一种帮助数据库高效查询数据的数据结构
+索引本身也很大，不可能全部存储在内存中，因此索引往往是存储在磁盘上的文件中。（可能是单独的索引文件，也可能是和数据一起存储在数据文件中）
+通常所说的索引，包括聚集索引、覆盖索引、组合索引、前缀索引、唯一索引等，没有特别说明，默认都是使用B+树结构组织（多路搜索树，并不一定是二叉的）的索引。
+索引的类型......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-10
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/04/09/Mysql/Mysql相关知识(二)/">
@@ -449,31 +477,6 @@ Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟�
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/03/16/Algorithm/缓存淘汰算法/">
-            <h2 class="post-title">
-                FIFO、LRU、LFU三种缓存淘汰算法
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文介绍三种常用缓存淘汰算法，即它们的简单实现。
-
-简介缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。当缓存中的数据太多超过一定值时，通常会采取一些缓存淘汰算法进行处理。
-FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的性质，所以可以考虑采用LinkedList实现FIFO算法。但是只用LinkedList......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-03-16
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -511,11 +514,9 @@ FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的
                             <div class="tags">
                                 
                                     
-                                            
-                                    
-                                        <a href="/tags/#算法" title="算法"
+                                        <a href="/tags/#记录" title="记录"
                                             rel="2">
-                                            算法
+                                            记录
                                         </a>
                                         
                                             
@@ -543,6 +544,27 @@ FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的
                                         
                                             
                                     
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
                                             
                                     
                                         <a href="/tags/#Mysql" title="Mysql"
@@ -559,20 +581,6 @@ FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的
                                         
                                             
                                     
-                                        <a href="/tags/#Spring" title="Spring"
-                                            rel="4">
-                                            Spring
-                                        </a>
-                                        
-                                            
-                                    
-                                            
-                                    
-                                        <a href="/tags/#Spring AOP" title="Spring AOP"
-                                            rel="2">
-                                            Spring AOP
-                                        </a>
-                                        
                                             
                             </div>
                         </section>
