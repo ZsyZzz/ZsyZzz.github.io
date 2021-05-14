@@ -95,13 +95,13 @@
                         
                     
                         
-                    
-                        
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
+                        
+                    
                         
                     
                         
@@ -202,24 +202,51 @@
 
     <div class="post-preview">
 
-        <a href="/2021/03/16/Algorithm/缓存淘汰算法/">
+        <a href="/2021/03/23/Spring/Spring事务/">
             <h2 class="post-title">
-                FIFO、LRU、LFU三种缓存淘汰算法
+                Spring 事务相关知识
             </h2>
             <h3 class="post-subtitle">
                 
             </h3>
             <div class="post-content-preview">
                 
-本文介绍三种常用缓存淘汰算法，即它们的简单实现。
+本文介绍Spring事务相关的知识，包括事务隔离级别和事务传播特性。
 
-简介缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。当缓存中的数据太多超过一定值时，通常会采取一些缓存淘汰算法进行处理。
-FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的性质，所以可以考虑采用LinkedList实现FIFO算法。但是只用LinkedList......
+事务事务是逻辑上的一组操作，要么都执行，要么都不执行。我自己的理解是，数据库操作的最小单位，要么成功，要么失败。
+特性：ACID
+
+原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么全部失败回滚。
+一致性（Consistency）：数据库在事务执行前后都保持一致性状态......
             </div>
         </a>
         <p class="post-meta">
             Posted by Zsy on
-                2021-03-16
+                2021-03-23
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
+            <h2 class="post-title">
+                Java类加载机制
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文简单介绍Java类加载相关知识
+
+Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟机内存，它的生命周期会经历：加载、验证、准备、解析、初始化、使用、卸载这七个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、准备、初始化、卸载这五个阶段的顺序是确定的，类型的加载过程必须按这种顺序，而解析阶段却不一定，它在某些情况下可以在初始化之后再开始，这是为了支持Java语言运......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-22
         </p>
 
     </div>
@@ -241,6 +268,31 @@ FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的
 简介之前了解过HashMap，HashMap是无序的，当我们希望有顺序地去存储key-value时，就需要使用LinkedHashMap了。
 LinkedHashMap由哈希表+双向链表组成，它继承自HashMap，重写了HashMap的一些方法，可以用于LRU算法，它和HashMap一样不是线程安全的。
 123456789101112131......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-03-16
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/03/16/Algorithm/缓存淘汰算法/">
+            <h2 class="post-title">
+                FIFO、LRU、LFU三种缓存淘汰算法
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍三种常用缓存淘汰算法，即它们的简单实现。
+
+简介缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。当缓存中的数据太多超过一定值时，通常会采取一些缓存淘汰算法进行处理。
+FIFO（先进先出）FIFO即先进先出算法，队列也具有先进先出的性质，所以可以考虑采用LinkedList实现FIFO算法。但是只用LinkedList......
             </div>
         </a>
         <p class="post-meta">
@@ -415,58 +467,6 @@ HashTableHashTable类是一个线程安全的类，它的......
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/02/23/Java Base/Java集合小结/">
-            <h2 class="post-title">
-                Java集合小结
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-这篇文章对Java集合相关类进行介绍，包括Collection、List、Set、Map、Queue这些常见得集合相关接口和类。
-
-1.集合概述常用的集合有List、Set、Map、Queue等，他们之间的关系如下图。List、Queue、Set继承Collection接口。Iterable接口是迭代器，这里不进行过多介绍。Map接口是一个单独的接口，这里不进行介绍。List、Set、Qu......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-02-23
-        </p>
-
-    </div>
-    <hr>
-    
-    <div class="post-preview">
-
-        <a href="/2021/01/18/Aviator/aviator使用/">
-            <h2 class="post-title">
-                Aviator的初步了解和使用
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-“初步了解和使用Aviator”
-
-1.Aviator简介Aviator 是一个高性能，轻量级的java语言实现的表达式求值引擎，主要用于各种表达式的动态求值。
-官方文档
-github地址
-
-支持数字、字符串、正则表达式、布尔值、正则表达式等基本类型，完整支持所有 Java 运算符及优先级等。函数是一等公民，支持闭包和函数式编程。内置 bigint/decmal 类型用于大整数和高精度运算......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-01-18
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -511,17 +511,10 @@ github地址
                                         
                                             
                                     
-                                        <a href="/tags/#算法" title="算法"
-                                            rel="2">
-                                            算法
-                                        </a>
-                                        
-                                            
-                                    
                                             
                                     
                                         <a href="/tags/#JVM" title="JVM"
-                                            rel="3">
+                                            rel="4">
                                             JVM
                                         </a>
                                         
@@ -541,6 +534,27 @@ github地址
                                         
                                             
                                     
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
                                             
                                     
                                         <a href="/tags/#Mysql" title="Mysql"
@@ -551,26 +565,12 @@ github地址
                                             
                                     
                                         <a href="/tags/#Redis" title="Redis"
-                                            rel="5">
+                                            rel="6">
                                             Redis
                                         </a>
                                         
                                             
                                     
-                                        <a href="/tags/#Spring" title="Spring"
-                                            rel="4">
-                                            Spring
-                                        </a>
-                                        
-                                            
-                                    
-                                            
-                                    
-                                        <a href="/tags/#Spring AOP" title="Spring AOP"
-                                            rel="2">
-                                            Spring AOP
-                                        </a>
-                                        
                                             
                             </div>
                         </section>

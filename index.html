@@ -95,13 +95,13 @@
                         
                     
                         
-                    
-                        
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
+                        
+                    
                         
                     
                         
@@ -200,6 +200,61 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/05/14/JVM/Java内存模型/">
+            <h2 class="post-title">
+                Java内存模型
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Java内存模型相关知识
+
+Java内存模型和JVM内存结构是两个不同的概念。
+Java内存模型：
+Java 的并发采用的是共享内存模型，Java 线程之间的通信总是隐式进行，整个通信过程对程序员完全透明。如果编写多线程程序的 Java 程序员不理解隐式进行的线程之间通信的工作机制，很可能会遇到各种奇怪的内存可见性问题。
+为了解决可能由共享内存模型引发的内存可见性问题，抽象出了Ja......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-05-14
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/05/11/Redis/Redis相关知识----缓存问题/">
+            <h2 class="post-title">
+                Redis相关知识----缓存问题
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Redis缓存相关问题，包括缓存穿透、缓存击穿、缓存雪崩等相关知识
+
+缓存穿透：缓存穿透是指缓存和数据库中都没有的数据，而用户不断发起请求，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义。当流量过大时，数据库可能挂掉。
+解决方案：
+
+用户校验：接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;=0的直接拦截；
+对空值缓存：从缓存取不到的数据，在数据库......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-05-11
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/04/30/Shuyou/最近一些想法/">
@@ -418,77 +473,6 @@ offe......
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/04/16/Mysql/Mysql相关知识(五)/">
-            <h2 class="post-title">
-                Mysql相关知识（五）
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文介绍Mysql ACID特性的实现原理
-
-ACID:
-
-原子性
-一致性
-隔离性
-持久性
-
-原子性：一个事务是一个不可切割的单位，要么全部执行成功，要么全部失败。
-是采用undo log日志实现的。undo log日志用来记录Mysql逻辑语句的执行。
-当事务对数据库进行修改时，InnoDB会生成对应的undo log；如果事务执行失败或调用了rollback，导致事务需要回滚，便可以利......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-04-16
-        </p>
-
-    </div>
-    <hr>
-    
-    <div class="post-preview">
-
-        <a href="/2021/04/13/Mysql/Mysql相关知识(四)/">
-            <h2 class="post-title">
-                Mysql相关知识（四）
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文介绍Mysql中explain相关知识
-
-explain:当mysql的查询语句执行较慢时，可以通过使用explain命令解释mysql语句，通过结果分析mysql语句执行慢的原因，来优化mysql语句。
-expain出来的信息有10列：
-
-id
-select_type
-table
-type
-possible_keys
-key
-key_len
-ref
-rows
-Extra
-
-id：SQ......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-04-13
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -529,17 +513,10 @@ id：SQ......
                                         
                                             
                                     
-                                        <a href="/tags/#算法" title="算法"
-                                            rel="2">
-                                            算法
-                                        </a>
-                                        
-                                            
-                                    
                                             
                                     
                                         <a href="/tags/#JVM" title="JVM"
-                                            rel="3">
+                                            rel="4">
                                             JVM
                                         </a>
                                         
@@ -559,6 +536,27 @@ id：SQ......
                                         
                                             
                                     
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
                                             
                                     
                                         <a href="/tags/#Mysql" title="Mysql"
@@ -569,26 +567,12 @@ id：SQ......
                                             
                                     
                                         <a href="/tags/#Redis" title="Redis"
-                                            rel="5">
+                                            rel="6">
                                             Redis
                                         </a>
                                         
                                             
                                     
-                                        <a href="/tags/#Spring" title="Spring"
-                                            rel="4">
-                                            Spring
-                                        </a>
-                                        
-                                            
-                                    
-                                            
-                                    
-                                        <a href="/tags/#Spring AOP" title="Spring AOP"
-                                            rel="2">
-                                            Spring AOP
-                                        </a>
-                                        
                                             
                             </div>
                         </section>

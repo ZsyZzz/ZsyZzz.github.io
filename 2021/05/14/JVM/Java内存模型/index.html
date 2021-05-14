@@ -13,11 +13,11 @@
 
     <title>
         
-          最近一些想法 - ShuYou&#39;s Blog
+          Java内存模型 - ShuYou&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://shuyou.site/2021/04/30/Shuyou/最近一些想法/">
+    <link rel="canonical" href="https://shuyou.site/2021/05/14/JVM/Java内存模型/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -178,14 +178,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#记录" title="记录">记录</a>
+                          <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
                         
                     </div>
-                    <h1>最近一些想法</h1>
+                    <h1>Java内存模型</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Zsy on
-                        2021-04-30
+                        2021-05-14
                     </span>
                 </div>
             </div>
@@ -204,31 +204,64 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>总想写一点什么，但是又感觉没什么好写的。</p>
-<p>写写一下最近的生活、工作、想法和规划吧。</p>
-<p><strong>Life</strong></p>
-<p>最近的生活也就工作日上班，节假日宅在宿舍。我也知道宅不太好，自己身体也没有以前好了，应该多去运动，跑跑步啥的。平时还是多做做运动吧，毕竟身体是自己的。前段时间，去广州找帆哥玩了几天，看了很多广州景点，也吃了很多好吃的。</p>
-<p>来深圳工作快一年了，也没有好好逛逛。一方面，自己对这座城市的感情没那么深吧，总觉得这是座“打工”的城市。也是第一次到另一座城市生活，独立生活的能力很差，离家的生活比较糟糕，可能是在家对我妈太依赖了吧。另一方面，目前的工资确实很低，这边消费很高，周末又不想一个人出去逛，自己出去的话也买不去很多东西。之前周末还去万科云城那边看看电影，但是最近开始和室友一起在网上看，体验也不差就没出去看电影了。</p>
-<p>最近好像长胖了，肚子一到春天就一堆肉。</p>
-<p>五一要回家看看爸妈，陪陪女朋友。但是只买到2号凌晨3点的票，就很难受。</p>
-<p><strong>Work</strong></p>
-<p>最近的工作，谈不上996，属于比较轻松的吧，但是一般晚上到宿舍也都8点多了。<br>其实我是只想写后端的，但是工作内容要求前后端都写，所以了解了下工作用的前端组件，然后也给这个博客加了一个搜索功能。<br>但是我的工资比较低，还需要努力学习技术。</p>
-<p>最近也记录了很多博文，大多是从网上其他博文搬过来的，但自己用心去阅读了这些博文，理解了很多知识点。</p>
-<p><strong>Idea</strong></p>
-<p>要努力啊，不然只能坐3点的高铁。</p>
-<p>勤奋一点，多学习技术。</p>
-<p>自信一点，要相信自己能做到。</p>
-<p><strong>Plan</strong></p>
-<p>想回武汉工作，估计年底就辞职回去吧。但是换工作，想要高工资得技术厉害才行。所以最近看的都是一些八股文类型的，理论很深的知识，然后写博客记录下来。但是很容易遗忘，而且口述出来很难，容易卡住。</p>
-<p>五一来了之后，学学微服务相关的技术。</p>
-<blockquote>
-<p>5/9  晚  回深圳了</p>
+                <blockquote>
+<p>本文介绍Java内存模型相关知识</p>
 </blockquote>
-<p>假期过得好快呀，一晃就过去了，又苦逼地回到深圳打工了。</p>
-<p>不想在这边打工了，无依无靠的，一个人在这边也交不到很多朋友，认清了自己是不喜欢孤独的一个人，还是喜欢热热闹闹的。</p>
-<p>要努力学习技术呀，多看点视频、博客，多花时间动手去学习，不管能不能达到自己想要的目标，开始就挺棒的。</p>
-<p>人生如戏啊      Life is a fucking movie</p>
-<p>2021已经快过了一半，加油吧。</p>
+<p>Java内存模型和JVM内存结构是两个不同的概念。</p>
+<p><strong>Java内存模型</strong>：</p>
+<p>Java 的并发采用的是共享内存模型，Java 线程之间的通信总是隐式进行，整个通信过程对程序员完全透明。如果编写多线程程序的 Java 程序员不理解隐式进行的线程之间通信的工作机制，很可能会遇到各种奇怪的内存可见性问题。</p>
+<p>为了解决可能由共享内存模型引发的内存可见性问题，抽象出了Java内存模型。</p>
+<p>Java 线程之间的通信由 Java 内存模型（本文简称为 JMM）控制，JMM 决定一个线程对共享变量的写入何时对另一个线程可见。从抽象的角度来看，JMM 定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存（main memory）中，每个线程都有一个私有的本地内存（local memory），本地内存中存储了该线程以读 / 写共享变量的副本。本地内存是 JMM 的一个抽象概念，并不真实存在。它涵盖了缓存，写缓冲区，寄存器以及其他的硬件和编译器优化。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210513230320166.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>JMM 通过控制主内存与每个线程的本地内存之间的交互，来为 java 程序员提供内存可见性保证。</p>
+<p><strong>重排序</strong>：</p>
+<p>在执行程序时为了提高性能，编译器和处理器常常会对指令做重排序。</p>
+<ul>
+<li>编译器优化的重排序。编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。</li>
+<li>指令级并行的重排序。现代处理器采用了指令级并行技术（Instruction-Level Parallelism， ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。</li>
+<li>内存系统的重排序。由于处理器使用缓存和读 / 写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。</li>
+</ul>
+<p>这些重排序都可能会导致多线程程序出现内存可见性问题。</p>
+<p>对于编译器，JMM 的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的编译器重排序都要禁止）。对于处理器重排序，JMM 的处理器重排序规则会要求 java 编译器在生成指令序列时，插入特定类型的内存屏障（memory barriers，intel 称之为 memory fence）指令，通过内存屏障指令来禁止特定类型的处理器重排序（不是所有的处理器重排序都要禁止）。</p>
+<p><strong>数据依赖</strong>：</p>
+<p>如果两个操作访问同一个变量，且这两个操作中有一个为写操作，此时这两个操作之间就存在数据依赖性。数据依赖分下列三种类型： </p>
+<ul>
+<li>写后读</li>
+<li>写后写</li>
+<li>读后写</li>
+</ul>
+<p>上面三种情况，只要重排序两个操作的执行顺序，程序的执行结果将会被改变。 前面提到过，编译器和处理器可能会对操作做重排序。编译器和处理器在重排序时，会遵守数据依赖性，编译器和处理器不会改变存在数据依赖关系的两个操作的执行顺序。 注意，这里所说的数据依赖性仅针对单个处理器中执行的指令序列和单个线程中执行的操作，不同处理器之间和不同线程之间的数据依赖性不被编译器和处理器考虑。</p>
+<p><strong>happens-before</strong>:</p>
+<p>如果一个操作执行的结果需要对另一个操作可见，那么这两个操作之间必须存在 happens-before 关系。这里提到的两个操作既可以是在一个线程之内，也可以是在不同线程之间。 与程序员密切相关的 happens-before 规则如下：</p>
+<ul>
+<li>程序次序法则：线程中的每个动作A都happens-before于该线程中的每一个动作B</li>
+<li>监视器锁规则：对一个监视器锁的解锁，happens- before 于随后对这个监视器锁的加锁。</li>
+<li>volatile 变量规则：对一个 volatile 域的写，happens- before 于任意后续对这个 volatile 域的读。</li>
+<li>线程启动法则：在一个线程里，对Thread.start的调用会happens-before于每个启动线程的动作。</li>
+<li>线程终结法则：线程中的任何动作都happens-before于其他线程检测到这个线程已经终结、或者从Thread.join调用中成功返回，或Thread.isAlive返回false。</li>
+<li>中断法则：一个线程调用另一个线程的interrupt happens-before于被中断的线程发现中断。</li>
+<li>终结法则：一个对象的构造函数的结束happens-before于这个对象finalizer的开始。</li>
+<li>传递性：如果 A happens- before B，且 B happens- before C，那么 A happens- before C。</li>
+</ul>
+<p>一个 happens-before 规则通常对应于多个编译器重排序规则和处理器重排序规则。对于 java 程序员来说，happens-before 规则简单易懂，它避免程序员为了理解 JMM 提供的内存可见性保证而去学习复杂的重排序规则以及这些规则的具体实现。</p>
+<p><strong>重排序对多线程的影响</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PossibleReordering</span> </span>&#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    Thread one = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            a = <span class="number">1</span>;</span><br><span class="line">            x = b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    Thread other = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            b = <span class="number">1</span>;</span><br><span class="line">            y = a;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    one.start();other.start();</span><br><span class="line">    one.join();other.join();</span><br><span class="line">    System.out.println(“(” + x + “,” + y + “)”);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很容易想到这段代码的运行结果可能为(1,0)、(0,1)或(1,1)，因为线程one可以在线程two开始之前就执行完了，也有可能反之，甚至有可能二者的指令是同时或交替执行的。</p>
+<p>然而，这段代码的执行结果也可能是(0,0). 因为，在实际运行时，代码指令可能并不是严格按照代码语句顺序执行的。得到(0,0)结果的语句执行过程，如下图所示。值得注意的是，a=1和x=b这两个语句的赋值操作的顺序被颠倒了，或者说，发生了指令“重排序”(reordering)。（事实上，输出了这一结果，并不代表一定发生了指令重排序，内存可见性问题也会导致这样的输出）</p>
+<p><img src="https://img-blog.csdnimg.cn/20210514170033680.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NhcnJvdFpzeQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>内存屏障</strong>:</p>
+<p>内存屏障（Memory Barrier，或有时叫做内存栅栏，Memory Fence）是一种CPU指令，用于控制特定条件下的重排序和内存可见性问题。Java编译器也会根据内存屏障的规则禁止重排序。</p>
+<p>内存屏障可以被分为以下几种类型：</p>
+<ul>
+<li>LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。</li>
+<li>StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。</li>
+<li>LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。</li>
+<li>StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。它的开销是四种屏障中最大的。在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能。</li>
+</ul>
+<p><strong>参考</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/java/jvm/java-jvm-jmm.html#%E5%A4%84%E7%90%86%E5%99%A8%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B">Java内存模型</a></li>
+<li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2014/09/23/java-memory-reordering.html">Java内存访问重排序的研究</a></li>
+</ol>
 
 
                 <hr>
@@ -237,13 +270,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/05/11/Redis/Redis相关知识----缓存问题/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----缓存问题">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/04/28/Redis/Redis相关知识----哨兵机制/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----哨兵机制">Next Post &rarr;</a>
+                            <a href="/2021/05/11/Redis/Redis相关知识----缓存问题/" data-toggle="tooltip" data-placement="top" title="Redis相关知识----缓存问题">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -270,7 +299,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#记录" title="记录">记录</a>
+                          <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
                         
                     </div>
                 </section>

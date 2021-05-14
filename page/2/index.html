@@ -95,13 +95,13 @@
                         
                     
                         
-                    
-                        
                             <li>
                                 <a href="/archives/">
                                     Archives
                                 </a>
                             </li>
+                        
+                    
                         
                     
                         
@@ -200,6 +200,77 @@
                     <!-- Main Content -->
 
 
+    <div class="post-preview">
+
+        <a href="/2021/04/16/Mysql/Mysql相关知识(五)/">
+            <h2 class="post-title">
+                Mysql相关知识（五）
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Mysql ACID特性的实现原理
+
+ACID:
+
+原子性
+一致性
+隔离性
+持久性
+
+原子性：一个事务是一个不可切割的单位，要么全部执行成功，要么全部失败。
+是采用undo log日志实现的。undo log日志用来记录Mysql逻辑语句的执行。
+当事务对数据库进行修改时，InnoDB会生成对应的undo log；如果事务执行失败或调用了rollback，导致事务需要回滚，便可以利......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-16
+        </p>
+
+    </div>
+    <hr>
+    
+    <div class="post-preview">
+
+        <a href="/2021/04/13/Mysql/Mysql相关知识(四)/">
+            <h2 class="post-title">
+                Mysql相关知识（四）
+            </h2>
+            <h3 class="post-subtitle">
+                
+            </h3>
+            <div class="post-content-preview">
+                
+本文介绍Mysql中explain相关知识
+
+explain:当mysql的查询语句执行较慢时，可以通过使用explain命令解释mysql语句，通过结果分析mysql语句执行慢的原因，来优化mysql语句。
+expain出来的信息有10列：
+
+id
+select_type
+table
+type
+possible_keys
+key
+key_len
+ref
+rows
+Extra
+
+id：SQ......
+            </div>
+        </a>
+        <p class="post-meta">
+            Posted by Zsy on
+                2021-04-13
+        </p>
+
+    </div>
+    <hr>
+    
     <div class="post-preview">
 
         <a href="/2021/04/10/Mysql/Mysql相关知识(三)索引/">
@@ -425,58 +496,6 @@ bean：在 Spring 中，构成应用程序主干并由 Spring IoC 容器管理�
     </div>
     <hr>
     
-    <div class="post-preview">
-
-        <a href="/2021/03/23/Spring/Spring事务/">
-            <h2 class="post-title">
-                Spring 事务相关知识
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文介绍Spring事务相关的知识，包括事务隔离级别和事务传播特性。
-
-事务事务是逻辑上的一组操作，要么都执行，要么都不执行。我自己的理解是，数据库操作的最小单位，要么成功，要么失败。
-特性：ACID
-
-原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么全部失败回滚。
-一致性（Consistency）：数据库在事务执行前后都保持一致性状态......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-03-23
-        </p>
-
-    </div>
-    <hr>
-    
-    <div class="post-preview">
-
-        <a href="/2021/03/22/JVM/Java虚拟机类加载过程/">
-            <h2 class="post-title">
-                Java类加载机制
-            </h2>
-            <h3 class="post-subtitle">
-                
-            </h3>
-            <div class="post-content-preview">
-                
-本文简单介绍Java类加载相关知识
-
-Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟机内存，它的生命周期会经历：加载、验证、准备、解析、初始化、使用、卸载这七个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、准备、初始化、卸载这五个阶段的顺序是确定的，类型的加载过程必须按这种顺序，而解析阶段却不一定，它在某些情况下可以在初始化之后再开始，这是为了支持Java语言运......
-            </div>
-        </a>
-        <p class="post-meta">
-            Posted by Zsy on
-                2021-03-22
-        </p>
-
-    </div>
-    <hr>
-    
 
 
         <!-- Pager -->
@@ -521,17 +540,10 @@ Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟�
                                         
                                             
                                     
-                                        <a href="/tags/#算法" title="算法"
-                                            rel="2">
-                                            算法
-                                        </a>
-                                        
-                                            
-                                    
                                             
                                     
                                         <a href="/tags/#JVM" title="JVM"
-                                            rel="3">
+                                            rel="4">
                                             JVM
                                         </a>
                                         
@@ -551,6 +563,27 @@ Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟�
                                         
                                             
                                     
+                                        <a href="/tags/#Spring" title="Spring"
+                                            rel="4">
+                                            Spring
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#算法" title="算法"
+                                            rel="2">
+                                            算法
+                                        </a>
+                                        
+                                            
+                                    
+                                        <a href="/tags/#Spring AOP" title="Spring AOP"
+                                            rel="2">
+                                            Spring AOP
+                                        </a>
+                                        
+                                            
+                                    
                                             
                                     
                                         <a href="/tags/#Mysql" title="Mysql"
@@ -561,26 +594,12 @@ Java类的生命周期一个类从被加载到虚拟机内存到卸载出虚拟�
                                             
                                     
                                         <a href="/tags/#Redis" title="Redis"
-                                            rel="5">
+                                            rel="6">
                                             Redis
                                         </a>
                                         
                                             
                                     
-                                        <a href="/tags/#Spring" title="Spring"
-                                            rel="4">
-                                            Spring
-                                        </a>
-                                        
-                                            
-                                    
-                                            
-                                    
-                                        <a href="/tags/#Spring AOP" title="Spring AOP"
-                                            rel="2">
-                                            Spring AOP
-                                        </a>
-                                        
                                             
                             </div>
                         </section>
